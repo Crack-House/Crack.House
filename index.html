@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Crack.House</title>
-<link rel="icon" type="image/png" href="favicon.png">
+ <link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root{--bg:#0a0a0a;--fg:#d8d8d8;--dim:#777;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -35,6 +35,7 @@ li::before{content:"> ";animation:cyc 4s ease-in-out infinite}
 #out{min-height:1.7em;margin:6px 0;animation:cyc 3s ease-in-out infinite}
 .big{font-size:1.3rem;letter-spacing:.18em;margin:34px 0 0;animation:cyc 2s linear infinite}
 .sm{font-size:.85rem}
+.pic{display:block;width:min(560px,100%);height:auto;margin:14px auto;border:2px solid #ff0062;box-shadow:6px 6px 0 #00ffd0}
 .tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:26px 0 0}
 .tile{width:112px;cursor:pointer}
 .tile canvas{display:block;width:112px;height:112px;image-rendering:pixelated;border:2px solid #ff4500}
@@ -91,42 +92,60 @@ li::before{content:"> ";animation:cyc 4s ease-in-out infinite}
 
 <script>
 (function(){
+/* PICTURES: every room can have img:'filename.ext' -- files live in the "pictures" folder next to index.html */
+var PD='pictures/';
 var P={
-home:{t:'where will you go?',l:'home',i:'house',h:'@house<p>there are many doors. some of them even lead to more doors. some of which even go places. how cool!!</p><p class="big">GINKLEJEFF SCREAMS FOR POWER!!!!</p>',e:['hall','what','knock','rand']},
-what:{t:'what is a crackhouse?',l:'what is it',i:'eye',h:'<p><i>congradulations and welcome, please enter with caution as you are not welcome here.</i></p><p><mark>GINKLEJEFF</mark> lives here, except hes here, he mostly consists of verbs and one VERY saucy steven.</p><p>this here is not being a website. PLEASE visit https://tacobell.fandom.com/wiki/Taco_Bell_Wiki<br>(you cannot click that. you must type it with your hands)<br>hello. very very good morning.<br><span class="cur"></span></p><p class="dim"><mark>你好，歡迎——其實不歡迎——早安，非常非常好的早晨<br>請從您左側的門離開。祝您有個非常、非常美好的早晨。<br>這幫慫包管理，去你媽的，滾去操你自己吧，去死吧！</mark></p>',e:['hog','void','home']},
-hog:{t:'the teachings of father hog',l:'father hog',i:'hog',h:'<p>we are terrified of the holy hog fathers devine wrath. Of his devine province and power.<br>what is wrong with us? are we not worthy of his radiant love?<br>maybe we thought too hot.<br>is it possible that the denominator has been whispering the teachings to his cousin this whole time?<br>yes? no? KILL.<br><i>also</i> FUCK the heretics</p>',e:['steven','basement','doctrine','home']},
+home:{t:'where will you go?',l:'home',i:'house',h:'@house<p>there are many doors. some of them even lead to more doors. some of which even go places. how cool!!</p><p class="big">THIS HOUSE SCREAMS FOR JUSTICE!!!!</p>',e:['hall','what','knock','rand']},
+what:{t:'what is a crackhouse?',l:'what is it',i:'info',h:'<p><i>congradulations and welcome, please enter with caution as you are not welcome here.</i></p><p><mark>GINKLEJEFF</mark> lives here, except hes here, he mostly consists of verbs and one VERY saucy steven.</p><p>this here is not being a website. PLEASE visit https://tacobell.fandom.com/wiki/Taco_Bell_Wiki<br>(you cannot click that. you must type it with your hands)<br>hello. very very good morning.<br><span class="cur"></span></p><p class="dim"><mark>你好，歡迎——其實不歡迎——早安，非常非常好的早晨<br>請從您左側的門離開。祝您有個非常、非常美好的早晨。<br>這幫慫包管理，去你媽的，滾去操你自己吧，去死吧！</mark></p>',e:['hog','void','home']},
+hog:{t:'the teachings of father hog',l:'father hog',i:'hog',img:'HOG.png',h:'<p>we are terrified of the holy hog fathers devine wrath. Of his devine province and power.<br>what is wrong with us? are we not worthy of his radiant love?<br>maybe we thought too hot.<br>is it possible that the denominator has been whispering the teachings to his cousin this whole time?<br>yes? no? KILL.<br><i>also</i> FUCK the heretics</p>',e:['steven','basement','doctrine','home']},
 hypercub:{t:'hypercub',l:'hypercub',i:'cube',h:'<p>hypercube is a browser game i made. you are a very fast cyan square. you dodge lasers. you defeat bosses.<br>it has many corners. some of them are #sloptastic.</p><p><a href="https://ginklejeff.github.io/HyperCube/" target="_blank" rel="noopener noreferrer">ginklejeff.github.io/HyperCube</a><br><span class="dim sm">(opens in a new tab. dodge responsibly)</span></p>',e:['elsewhere','kitchen','void','list']},
-doctrine:{t:'doctrine (do not read) [please read]',l:'doctrine',i:'wave',h:'<ul><li>dougdoug is bald at 2d platformer</li><li>dougdoug is rigged at being bald</li><li>hi billy mays here with zorbeez</li><li>ill have what hes having (with extra buttsauce)</li><li>i swear i always function better after being followed by john wayne\'s half cousin stepson</li><li>ill have what shes having (with extra buttsauce x2)</li><li>doudoug doug doug dougdoug DOUG DOUG DOUG!!!</li><li>HOLD THE LINE!!!</li></ul>',e:['art','hog','steven','home']},
-art:{t:'the intruder gallery',l:'gallery',i:'noise',h:'@gun',e:['doctrine','hall']},
-faq:{t:'frequently unasked questions',l:'f.u.q.',i:'eye',h:'<p><b>q:</b> why?<br><b>a:</b> saucy steven.</p><p><b>q:</b> who is in charge?<br><b>a:</b> saucy steven.</p><p><b>q:</b>what is this website about?<br><b>a:</b> mostly about steven.</p><p><b>q:</b> what happened to the thing?<br><b>a:</b> saucy steven.</p>',e:['steven','question','home']},
-elsewhere:{t:'elsewhere',l:'elsewhere',i:'noise',h:'<p>youtube<br>twitch<br>twitter<br>doom wads<br>pronouns<br>hypercube</p><p class="dim">these are not links. these are rooms. go in them.</p>',e:['tube','twitch','bird','wads','closet','hypercub','basement','home']},
-knock:{t:'knock',l:'knock',i:'door',h:'<p>ginklejeff@gmail.com<br><span class="dim sm">(replies arrive as snack so he might eat them #getrekt)</span></p>',e:['hall','home']},
-question:{t:'the question',l:'the question',i:'eye',h:'<p><i>is the hog thanking us, or have we been thinking about the hog wrong, is he lord? or is he some sort of...... interloper?</i></p>',e:['mirror','home']},
-hall:{t:'the hallway',l:'hallway',i:'door',h:'<p>seven doors. where will you go?</p>',e:['kitchen','basement','attic','bathroom','art','closet','tube','home']},
-kitchen:{t:'the kitchen',l:'kitchen',i:'fridge',h:'<p>something saucy is cooking. its probably steven who put it there.</p>',e:['fridge','steven','hall']},
-fridge:{t:'inside the fridge',l:'the fridge',i:'drip',h:'<p>1 (one) jar of buttsauce.<br> 3 (three) containers of ginklesauce <br>saucy steven, watches you.</p>',e:['kitchen','steven','pit']},
-steven:{t:'saucy steven',l:'saucy steven',i:'drip',h:'<p>he is in charge. he is why.<br>he is the a to every q.</p><p class="dim">VERY saucy. im saucy that your grandpa died</p>',e:['kitchen','hog','faq']},
-basement:{t:'the basement',l:'basement',i:'stairs',h:'<p>this is where the hog sleeps.<br>do not wake the hog.<br>the hog is always VERY aware.</p>',e:['hall','pit','hog','elsewhere']},
-pit:{t:'a pit',l:'the pit',i:'void',h:'<p>you can hear the denominator down here.<br>it is whispering the teachings.</p>',e:['basement','void','wads']},
-attic:{t:'the attic',l:'attic',i:'noise',h:'<p>boxes of old tuesday.<br> there is a smelly fish here (it is not dead) </p>',e:['hall','void','hypercub','bird','origin']},
-bathroom:{t:'the bathroom',l:'bathroom',i:'wave',h:'<p>the mirror is looking at you.</p>',e:['mirror','hall']},
-mirror:{t:'the mirror',l:'mirror',i:'eye',h:'<p>you see john wayne\'s half cousin stepson.<br> he winks at you.</p>',e:['bathroom','question','closet','discord']},
-void:{t:'nothing',l:'the void',i:'void',h:'<p>theres nothing there.<br><span class="dim">(the nothing is VERY saucy)</span></p>',e:['home','pit','rand']},
+doctrine:{t:'doctrine (do not read) [please read]',l:'doctrine',i:'scroll',h:'<ul><li>dougdoug is bald at 2d platformer</li><li>dougdoug is rigged at being bald</li><li>hi billy mays here with zorbeez</li><li>ill have what hes having (with extra buttsauce)</li><li>i swear i always function better after being followed by john wayne\'s half cousin stepson</li><li>ill have what shes having (with extra buttsauce x2)</li><li>doudoug doug doug dougdoug DOUG DOUG DOUG!!!</li><li>HOLD THE LINE!!!</li></ul>',e:['art','hog','steven','home']},
+art:{t:'the intruder gallery',l:'gallery',i:'frame',h:'@gun',e:['doctrine','hall']},
+faq:{t:'frequently unasked questions',l:'f.u.q.',i:'speech',h:'<p><b>q:</b> why?<br><b>a:</b> saucy steven.</p><p><b>q:</b> who is in charge?<br><b>a:</b> saucy steven.</p><p><b>q:</b>what is this website about?<br><b>a:</b> mostly about steven.</p><p><b>q:</b> what happened to the thing?<br><b>a:</b>saucy steven.</p>',e:['steven','question','home']},
+elsewhere:{t:'elsewhere',l:'elsewhere',i:'signpost',h:'<p>youtube<br>twitch<br>twitter<br>doom wads<br>pronouns<br>hypercube</p><p class="dim">these are not links. these are rooms. go in them.</p>',e:['tube','twitch','bird','wads','closet','hypercub','basement','home']},
+knock:{t:'knock',l:'knock',i:'mail',h:'<p>ginklejeff@gmail.com<br><span class="dim sm">(replies arrive as snack so he might eat them #getrekt)</span></p>',e:['hall','home']},
+question:{t:'the question',l:'the question',i:'qmark',h:'<p><i>is the hog thanking us, or have we been thinking about the hog wrong, is he lord? or is he some sort of...... interloper?</i></p>',e:['mirror','home']},
+hall:{t:'the hallway',l:'hallway',i:'doors',h:'<p>so many doors. where will you go?<br><span class="dim sm">(the blanket on the wall is not a door. probably.)</span></p>',e:['kitchen','basement','attic','bathroom','art','closet','tube','tmnt','boats','between','home']},
+kitchen:{t:'the kitchen',l:'kitchen',i:'pot',h:'<p>something saucy is cooking. its probably steven who put it there.</p>',e:['fridge','steven','jolyne','hall']},
+fridge:{t:'inside the fridge',l:'the fridge',i:'fridge',h:'<p>1 (one) jar of buttsauce.<br> 3 (three) containers of ginklesauce <br>saucy steven, watches you.</p>',e:['kitchen','steven','pit']},
+steven:{t:'saucy steven',l:'saucy steven',i:'bottle',img:'steven.jpg',h:'<p>he is in charge. he is why.<br>he is the a to every q.</p><p class="dim">VERY saucy. im saucy that your grandpa died</p>',e:['kitchen','hog','faq']},
+basement:{t:'the basement',l:'basement',i:'stairs',h:'<p>this is where the hog sleeps.<br>do not wake the hog.<br>the hog is always VERY aware.</p>',e:['hall','pit','hog','office','elsewhere']},
+pit:{t:'a pit',l:'the pit',i:'hole',h:'<p>you can hear the denominator down here.<br>it is whispering the teachings.</p>',e:['basement','dvhole','void','wads']},
+attic:{t:'the attic',l:'attic',i:'attic',h:'<p>boxes of old tuesday.<br> there is a smelly fish here (it is not dead) </p>',e:['hall','void','hypercub','bird','bedhog','origin']},
+bathroom:{t:'the bathroom',l:'bathroom',i:'toilet',h:'<p>the mirror is looking at you.<br>one of the stalls is much too big.</p>',e:['mirror','mansion','hall']},
+mirror:{t:'the mirror',l:'mirror',i:'mirror',h:'<p>you see john wayne\'s half cousin stepson.<br> he winks at you.</p>',e:['bathroom','question','closet','discord']},
+void:{t:'nothing',l:'the void',i:'void',h:'<p>theres nothing there.<br><span class="dim">(the nothing is VERY saucy)</span></p>',e:['home','pit','between','rand']},
 wads:{t:'the wad room',l:'wad room',i:'skull',h:'<p>doom megawad with 30 lvls. 3 are finished. #itsnotdoneyet </p><p><a href="https://ginklejeff.github.io/Gink-Dooms/" target="_blank" rel="noopener noreferrer">ginklejeff.github.io/Gink-Dooms</a><br><span class="dim sm">(opens in a new tab. the hog said ok)</span></p>',e:['elsewhere','pit','void']},
-closet:{t:'pronouns page',l:'closet',i:'door',h:'<p>the hog respects your pronounds.</p><p><a href="https://en.pronouns.page/@ginklejeff" target="_blank" rel="noopener noreferrer">en.pronouns.page/@ginklejeff</a></p>',e:['mirror','bathroom','hall']},
+closet:{t:'pronouns page',l:'closet',i:'hanger',h:'<p>the hog respects your pronounds.</p><p><a href="https://en.pronouns.page/@ginklejeff" target="_blank" rel="noopener noreferrer">en.pronouns.page/@ginklejeff</a></p><p class="dim sm">there is a very smoky door in the back.</p>',e:['mirror','bathroom','nana','hall']},
 tube:{t:'the broadcast room',l:'broadcast',i:'tv',h:'<p>this is the channel where the things are. look at it. even the hog is subscribed.</p><p><a href="https://www.youtube.com/@GinkleJeff" target="_blank" rel="noopener noreferrer">youtube.com/@GinkleJeff</a></p>',e:['twitch','list','ad']},
-twitch:{t:'broadcast room #2',l:'broadcast #2',i:'eye',h:'<p>sometimes i am live.<br>sometimes the chat is just steven. hes VERY saucy. if you havent heard.</p><p><a href="https://www.twitch.tv/ginklejeff" target="_blank" rel="noopener noreferrer">twitch.tv/ginklejeff</a></p>',e:['tube','bird','discord']},
-bird:{t:'the bird cage',l:'bird cage',i:'wave',h:'<p>it used to be a bird. now it is an X.<br>the bird is somewhere in the walls still. *sigh* hope we can find that guy.</p><p><a href="https://x.com/ginklesauce" target="_blank" rel="noopener noreferrer">x.com/ginklesauce</a></p>',e:['twitch','attic','newyear']},
-list:{t:'CURTIS BIG LIST OF THINGS',l:'CURTIS',i:'stairs',h:'<p>my favorite video of all time.<br>hope you are ready cause its a #BLAST</p><p><a href="https://www.youtube.com/watch?v=hwdBNas79MU&amp;list=PLAxcxUGXrZLkevKxzUZGUe9VOZZBh85jY&amp;index=14" target="_blank" rel="noopener noreferrer">Curtis’ Big List of Things</a></p>',e:['tube','hypercub','void']},
-ad:{t:'earn the cock',l:'cocksure',i:'drip',h:'<p>please enjoy this commercial.<br>you have earned it.</p><p><a href="https://www.youtube.com/watch?v=XHe2Mbci5YI" target="_blank" rel="noopener noreferrer">earn the cock — the cocksure commercial</a></p>',e:['tube','kitchen','steven']},
-newyear:{t:'HEY HEY HEY HEY!',l:'china',i:'cube',h:'<p>chinese new year propaganda hype song.<br>play it loud. the hog insists.</p><p><a href="https://www.youtube.com/watch?v=tYa7RZpph10" target="_blank" rel="noopener noreferrer">the hype song</a></p>',e:['bird','hall','doctrine']},
-discord:{t:'jumbo josh on the mic brah',l:'jumbo josh sings discord',i:'noise',h:'<p>jumbo josh on the mic brah.<br>sit on my lap brah. listen to me sing.</p><p><a href="https://www.youtube.com/watch?v=_k_fBK4aaLk&amp;list=RD_k_fBK4aaLk&amp;start_radio=1&amp;sttick=0" target="_blank" rel="noopener noreferrer">jumbo josh sings discord</a></p>',e:['twitch','pit','mirror']},
-origin:{t:'the original house',l:'the original',i:'house',h:'<p>before this house there was another house. there were many frags to be had there.<br>we are a parody and also a tribute. CLICK FOR PENIS ADVICE!!!!!!</p><p><a href="https://frag.house" target="_blank" rel="noopener noreferrer">frag.house</a></p>',e:['home','void','what']},
+twitch:{t:'broadcast room #2',l:'broadcast #2',i:'twitch',h:'<p>sometimes i am live.<br>sometimes the chat is just steven. hes VERY saucy. if you havent heard.</p><p><a href="https://www.twitch.tv/ginklejeff" target="_blank" rel="noopener noreferrer">twitch.tv/ginklejeff</a></p>',e:['tube','bird','discord']},
+bird:{t:'the bird cage',l:'bird cage',i:'bird',h:'<p>it used to be a bird. now it is an X.<br>the bird is somewhere in the walls still. *sigh* hope we can find that guy.</p><p><a href="https://x.com/ginklesauce" target="_blank" rel="noopener noreferrer">x.com/ginklesauce</a></p>',e:['twitch','attic','newyear']},
+list:{t:'CURTIS BIG LIST OF THINGS',l:'CURTIS',i:'list',h:'<p>my favorite video of all time.<br>hope you are ready cause its a #BLAST</p><p><a href="https://www.youtube.com/watch?v=hwdBNas79MU&amp;list=PLAxcxUGXrZLkevKxzUZGUe9VOZZBh85jY&amp;index=14" target="_blank" rel="noopener noreferrer">Curtis’ Big List of Things</a></p>',e:['tube','hypercub','void']},
+ad:{t:'earn the cock',l:'cocksure',i:'trophy',h:'<p>please enjoy this commercial.<br>you have earned it.</p><p><a href="https://www.youtube.com/watch?v=XHe2Mbci5YI" target="_blank" rel="noopener noreferrer">earn the cock — the cocksure commercial</a></p>',e:['tube','kitchen','steven','dvhole']},
+newyear:{t:'HEY HEY HEY HEY!',l:'china',i:'lantern',h:'<p>chinese new year propaganda hype song.<br>play it loud. the hog insists.</p><p><a href="https://www.youtube.com/watch?v=tYa7RZpph10" target="_blank" rel="noopener noreferrer">the hype song</a></p>',e:['bird','hall','doctrine']},
+discord:{t:'jumbo josh on the mic brah',l:'jumbo josh sings discord',i:'mic',h:'<p>jumbo josh on the mic brah.<br>sit on my lap brah. listen to me sing.</p><p><a href="https://www.youtube.com/watch?v=_k_fBK4aaLk&amp;list=RD_k_fBK4aaLk&amp;start_radio=1&amp;sttick=0" target="_blank" rel="noopener noreferrer">jumbo josh sings discord</a></p>',e:['twitch','pit','mirror']},
+origin:{t:'the original house',l:'the original',i:'crosshair',h:'<p>before this house there was another house. there were many frags to be had there.<br>we are a parody and also a tribute. CLICK FOR PENIS ADVICE!!!!!!</p><p><a href="https://frag.house" target="_blank" rel="noopener noreferrer">frag.house</a></p>',e:['home','void','what']},
+
+/* ---- FRIEND ROOMS ---- */
+office:{t:'Hornswaggler\'s Office',l:'hornswaggler',i:'horns',k:'#ff9ad5',img:'sebastion.png',h:'<p>the mighty hornswaggler is not in.<br>the mighty hornswaggler is always in.<br>please do not touch the desk. the desk is spooky. the desk is also charming.</p><p class="dim sm">capabilities: known. why: saucy steven.</p>',e:['basement','pit']},
+jolyne:{t:'jolyne',l:'jolyne',i:'boombox',k:'#00ffd0',img:'jolyne.png',h:'<p>the kicklemiester has entered the kitchen. yo gabba gabba.<br>she is a parrot eater. (allegedly.) (sigma.)</p>',e:['kitchen','steven','hall']},
+dvhole:{t:'disablevizard hole',l:'disablevizard hole',i:'wizard',k:'#b84dff',img:'joey.jpg',h:'<p>you fell in. joeyjoaey lives down here.<br>capabilities: peeing &amp; pooping #buttsauce<br>the muzak is VERY smooth.</p>',e:['pit','ad','void']},
+mansion:{t:'psychopants psycho-mansion',l:'psycho-mansion',i:'pants',k:'#00a2ff',img:'nix.jpg',h:'<p>psychopantis...........<br>the realest guy you will EVER friendslop.<br><span class="dim sm">(he lives in the bathroom. there is a mansion in the bathroom. do not ask.)</span></p>',e:['bathroom','mirror']},
+boats:{t:'the boats',l:'the boats',i:'boat',k:'#00a2ff',h:'<p>a boat. it has been waiting for you.<br>no one is steering. it will take you across the ocean anyway.</p>',e:['slopbeach','hall']},
+slopbeach:{t:'slopbeach (sandy)',l:'slopbeach (sandy)',i:'crown',k:'#fff700',img:'ari.png',h:'<p>ari is here. ari is shlurping the shlorp.<br>abilities: insta-KILL. ultimate POWER: suicide BOMB.<br>the sand is VERY sandy.</p>',e:['boats','void']},
+
+/* ---- OTHER ROOMS ---- */
+tmnt:{t:'the tmnt blanket',l:'tmnt blanket',i:'turtle',k:'#39ff14',img:'tmnt_HOLY_blanket.png',h:'<p>teenage mutant evil turtle blanket.<br>dont tell mom. shell hide the hobbits.<br><span class="dim sm">(this will live in MY room once i make it. for now the hallway is holding it.)</span></p>',e:['hall','closet']},
+bedhog:{t:'sonic the bedhog',l:'sonic the bedhog',i:'hedgehog',k:'#00a2ff',img:'sonic_the_bedhog_.png',h:'<p>gotta go fast. gotta go to sleep.<br>gotta go VERY fast to sleep.</p>',e:['attic','hall']},
+between:{t:'the space in-between',l:'the space in-between',i:'corridor',k:'#b84dff',img:'the_space_in_between.jpg',h:'<p>this hallway is here. this hallway is not here.<br>both are true until you look. it is brutalist. it hums.<br><span class="dim sm">(the doors are different every time. the door you came from might not be there either.)</span></p>',e:[]},
+nana:{t:'weed nana',l:'weed nana',i:'leaf',k:'#39ff14',img:'weed_nana.png',h:'<p>nana has been here since before the house.<br>she is chill. she is VERY chill.<br><span class="dim sm">there is a door behind her chair. it is warm.</span></p>',e:['closet','nana2','void']},
+nana2:{t:'weed nana 2: the evil weed dimension',l:'weed nana 2',i:'leaf2',k:'#ff0062',img:'weed_nana_2.jpg',h:'<p>xombies from planet hell have opened a rift into the EVIL weed dimension and are now AFTER grannies awesome obelisk weed<br>#weednanachronicles #weedoftime #robertjordan #weednanafromhell #xombies</p>',e:['nana']},
 rand:{t:'???',l:'???',i:'noise',h:'',e:[]}
 };
 var V=document.getElementById('view'),O=document.getElementById('out'),cur='home',hist=[],ac,mus=null,n=0,pops=[];
-var BY=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]],COL=['#00ffd0','#ff0062','#ff4500','#fff700'];
-var TY=['house','hog','eye','skull','wave','door','fridge','noise','void','stairs','drip','cube','tv'];
+var BY=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]],COL=['#00ffd0','#ff0062','#ff4500','#fff700','#b84dff','#39ff14','#ff9ad5','#00a2ff'];
+var TY=['house','hog','eye','skull','wave','door','fridge','noise','void','stairs','drip','cube','tv','boat','horns','boombox','wizard','pants','crown','turtle','hedgehog','corridor','leaf','leaf2','qmark','info','speech','scroll','frame','signpost','mail','doors','pot','bottle','hole','attic','toilet','mirror','hanger','twitch','bird','list','trophy','lantern','mic','crosshair'];
+var PICS=Object.keys(P).filter(function(k){return P[k].img}).map(function(k){return P[k].img});
 function D(x,y,a,b){return Math.hypot(x-a,y-b)}
 function F(t,x,y){var dx=x-.5,dy=y-.5,r=Math.hypot(dx,dy);
 switch(t){
@@ -142,18 +161,54 @@ case'void':return 1-r*1.9+.08*Math.sin(r*60);
 case'stairs':return y>Math.floor(x*6)/6+.05?.8:.1;
 case'drip':return y<.3+.17*Math.abs(Math.sin(x*19))?.9:.12;
 case'cube':var m=Math.max(Math.abs(dx),Math.abs(dy));return(Math.floor(m*14)%2)?.9:.1;
+case'boat':if(y>.62&&y<.78&&Math.abs(dx)<.3-(y-.62)*1.2)return .9;if(Math.abs(dx+.02)<.02&&y>.2&&y<.62)return .9;if(dx>0&&y>.22&&y<.58&&dx<(y-.2)*.6)return .7;return y>.8?.4+.3*Math.sin(x*30):.12;
+case'horns':var ax=Math.abs(dx);if(D(x,y,.4,.58)<.07||D(x,y,.6,.58)<.07)return 0;if(y>.1&&y<.45&&Math.abs(ax-(.2+(.45-y)*.35))<(y-.1)*.18+.005)return .95;if(D(x,y,.5,.6)<.22)return .6;return .1;
+case'boombox':var sd=Math.min(D(x,y,.3,.6),D(x,y,.7,.6));if(sd<.14)return(Math.floor(sd*40)%2)?.9:.1;if(x>.42&&x<.58&&y>.42&&y<.52)return .95;if(Math.abs(y-.22)<.02&&x>.3&&x<.7)return .9;if(x>.12&&x<.88&&y>.32&&y<.85)return .55;return .1;
+case'wizard':if(y>.12&&y<.65&&Math.abs(dx)<(y-.12)*.35){if(y>.5&&y<.56)return .2;return D(x,y,.5,.38)<.04?1:.8}if(y>=.65&&y<.72&&Math.abs(dx)<.4)return .9;if(y>=.72&&y<.92&&Math.abs(dx)<.2)return .5+.3*Math.sin(y*60);return .1;
+case'pants':if(y>.15&&y<.25&&Math.abs(dx)<.28)return .95;if(y>=.25&&y<.92&&(Math.abs(x-.36)<.13||Math.abs(x-.64)<.13)){if(Math.abs(y-.38)<.015&&Math.abs(x-.36)<.08)return 0;return .7}return .1;
+case'crown':if(y>.2&&y<.5){if(y>.42)return Math.abs(dx)<.3?.9:.1;return(Math.abs(x-.25)<(y-.2)*.25||Math.abs(dx)<(y-.2)*.25||Math.abs(x-.75)<(y-.2)*.25)?.95:.1}if(y>=.5&&Math.abs(dx)<.3&&y<.5+.3*Math.abs(Math.sin(x*17)))return .6;return .1;
+case'turtle':if(D(x,y,.5,.2)<.11)return Math.abs(y-.2)<.025?0:.8;if(D(x,y,.5,.58)<.3)return(Math.abs(dx)<.02||Math.abs(y-.58)<.02||Math.abs(Math.abs(dx)-.15)<.015)?.2:.75;return .1;
+case'hedgehog':var ha=Math.atan2(y-.45,dx),hr=.18+.17*Math.pow(Math.abs(Math.sin(ha*5)),4);if(Math.hypot(dx,y-.45)<hr&&y<.76)return D(x,y,.6,.48)<.04?0:.8;if(y>.78&&y<.88&&Math.abs(dx)<.4)return .6;return .1;
+case'corridor':var cu=Math.max(Math.abs(dx),Math.abs(dy)*1.3),cv=cu<.06?0:((Math.floor(1/(cu+.05))%2)?.9:.1);return Math.random()<.1?1-cv:cv;
+case'leaf':var lt=Math.atan2(y-.62,dx)+Math.PI/2;if(Math.abs(dx)<.02&&y>.62&&y<.92)return .9;if(y<=.62&&Math.hypot(dx,y-.62)<.42*Math.pow(Math.abs(Math.cos(7*lt)),1.5)*(1-Math.abs(lt)*.3))return .85;return .1;
+case'leaf2':return F('leaf',x,1-y);
+case'qmark':var qr=D(x,y,.5,.33);if(qr>.1&&qr<.2&&(y<.36||x>.5))return .95;if(x>.46&&x<.54&&y>.45&&y<.6)return .95;if(D(x,y,.5,.78)<.05)return .95;return .1;
+case'info':if(r<.4){if(D(x,y,.5,.3)<.05||(Math.abs(dx)<.05&&y>.42&&y<.72))return 1;return r>.34?.9:.4}return .1;
+case'speech':if(x>.12&&x<.88&&y>.2&&y<.65){if(y>.38&&y<.48&&(D(x,y,.3,.43)<.045||D(x,y,.5,.43)<.045||D(x,y,.7,.43)<.045))return .1;return .7}if(y>=.65&&y<.82&&x>.25&&x<.25+(.82-y)*.7)return .7;return .1;
+case'scroll':if(Math.abs(dx)<.3&&(y<.2||y>.8)&&y>.1&&y<.9)return .95;if(Math.abs(dx)<.27&&y>=.2&&y<=.8)return Math.sin(y*60)>.2?.8:.5;return .1;
+case'frame':if(x>.12&&x<.88&&y>.15&&y<.85){if(x<.2||x>.8||y<.23||y>.77)return .95;if(D(x,y,.7,.35)<.07)return 1;return y>.75-.3*Math.max(0,1-Math.abs(dx)*3)?.7:.2}return .1;
+case'signpost':if(Math.abs(dx)<.02&&y>.1&&y<.95)return .8;if(Math.abs(y-.29)<.09&&x>.25&&x<.8-Math.abs(y-.29)*1.2)return .95;if(Math.abs(y-.54)<.09&&x<.75&&x>.2+Math.abs(y-.54)*1.2)return .7;return .1;
+case'mail':if(x>.12&&x<.88&&y>.28&&y<.72){if(y<.5&&Math.abs(y-.28-Math.min(x-.12,.88-x)*.8)<.015)return .1;return .8}return .1;
+case'doors':for(var q=0;q<3;q++){var cx=.2+q*.3;if(Math.abs(x-cx)<.11&&y>.22&&y<.92)return D(x,y,cx+.06,.6)<.03?1:.65}return .1;
+case'pot':if(Math.abs(dx)<.3&&y>.45&&y<.5)return .95;if(Math.abs(dx)<.25&&y>=.5&&y<.8)return .8;if(Math.abs(dx)>.25&&Math.abs(dx)<.35&&y>.55&&y<.6)return .9;if(y<.4&&y>.1&&Math.abs(dx)<.2&&Math.sin(x*30+y*25)>.6)return .8;return .1;
+case'bottle':if(Math.abs(dx)<.09&&y>.12&&y<.2)return .95;if(Math.abs(dx)<.07&&y>=.2&&y<.4)return .75;if(Math.abs(dx)<.12&&y>=.4&&y<.9)return(y>.55&&y<.75)?.3:.75;if(D(x,y,.5,.95)<.035)return .95;return .1;
+case'hole':var he=Math.hypot(dx,(y-.55)*2);if(he<.4){if(he>.34)return .9;return he<.15?0:(Math.floor(he*20)%2?.5:.2)}return .12;
+case'attic':if(y>.15&&y<.55&&Math.abs(dx)<(y-.15)*1.2)return D(x,y,.5,.4)<.07?1:.8;if(y>=.55&&y<.9&&Math.abs(dx)<.38){if((x>.2&&x<.4&&y>.75)||(x>.6&&x<.75&&y>.7))return .95;return .45}return .1;
+case'toilet':if(x>.3&&x<.7&&y>.15&&y<.4)return .8;var tb=Math.hypot(dx,(y-.58)*1.5);if(tb<.3)return tb<.2?.4:.9;if(Math.abs(dx)<.1&&y>.7&&y<.9)return .7;return .1;
+case'mirror':var me=Math.hypot(dx/.8,y-.5);if(me<.4){if(me>.34)return .95;return Math.sin((x+y)*30)>.8?1:.45}return .1;
+case'hanger':var hr=D(x,y,.5,.24);if(hr>.04&&hr<.08&&y<.3)return .9;if(Math.abs(dx)<.02&&y>.3&&y<.4)return .9;if(y>.4&&y<.6&&Math.abs(Math.abs(dx)-(y-.4)*2)<.025)return .9;if(Math.abs(dx)<.4&&y>.58&&y<.62)return .9;return .1;
+case'twitch':if(x>.2&&x<.8&&y>.15&&y<.7){if(y>.28&&y<.5&&(Math.abs(x-.42)<.03||Math.abs(x-.58)<.03))return .1;return .75}if(y>=.7&&y<.85&&x>.2&&x<.2+(.85-y)*1.2)return .75;return .1;
+case'bird':if(Math.hypot(dx*1.2,(y-.55)*1.6)<.25||D(x,y,.65,.38)<.12){if(D(x,y,.67,.35)<.025)return 0;return .8}if(x>.76&&x<.92&&Math.abs(y-.4)<(.92-x)*.5)return .95;if(x<.3&&x>.1&&Math.abs(y-(.55-(.3-x)*.8))<.05)return .8;return .1;
+case'list':for(var lq=0;lq<4;lq++){var ly=.25+lq*.16;if(D(x,y,.2,ly)<.04)return 1;if(x>.3&&x<.8&&Math.abs(y-ly)<.02)return .8}return .1;
+case'trophy':if(y>.15&&y<.5&&Math.abs(dx)<.22-(y-.15)*.2)return D(x,y,.5,.3)<.05?.2:.9;var th=Math.min(D(x,y,.25,.3),D(x,y,.75,.3));if(th>.06&&th<.1)return .9;if(Math.abs(dx)<.04&&y>.5&&y<.7)return .8;if(Math.abs(dx)<.2&&y>.7&&y<.8)return .9;return .1;
+case'lantern':if(Math.abs(dx)<.1&&y>.12&&y<.18)return .95;if(Math.abs(y-.5)<.3&&Math.abs(dx)<.3*Math.sqrt(1-Math.pow((y-.5)/.3,2)))return Math.sin(dx*40)>.5?.6:.9;if(Math.abs(dx)<.1&&y>.8&&y<.85)return .95;if(Math.abs(dx)<.02&&y>=.85&&y<.95)return .8;return .1;
+case'mic':if(Math.hypot(dx,(y-.3)*.7)<.17)return Math.sin(y*80)>0?.9:.6;var mh=D(x,y,.5,.35);if(mh>.2&&mh<.25&&y>.35)return .8;if(Math.abs(dx)<.02&&y>.6&&y<.82)return .8;if(Math.abs(dx)<.18&&y>.82&&y<.88)return .8;return .1;
+case'crosshair':if(r>.28&&r<.32)return .9;if((Math.abs(dx)<.02||Math.abs(dy)<.02)&&r<.42&&r>.1)return .9;if(r<.04)return 1;return .1;
 case'tv':return(x>.15&&x<.85&&y>.2&&y<.8)?.4+.3*Math.sin(y*90)+.2*Math.sin(x*20+y*5):.1}
 return .5}
 function draw(c,t,col){c.width=c.height=64;var g=c.getContext('2d'),im=g.createImageData(64,64),k=parseInt(col.slice(1),16),R=k>>16&255,G=k>>8&255,B=k&255;
 for(var y=0;y<64;y++)for(var x=0;x<64;x++){var on=F(t,x/64,y/64)>BY[y&3][x&3]/16,j=(y*64+x)*4;im.data[j]=on?R:10;im.data[j+1]=on?G:10;im.data[j+2]=on?B:10;im.data[j+3]=255}
 g.putImageData(im,0,0)}
-function hc(s){var h=0;for(var i=0;i<s.length;i++)h+=s.charCodeAt(i);return h%4}
-function tile(id){var p=P[id];return'<div class="tile" role="button" tabindex="0" data-g="'+id+'"><canvas data-i="'+p.i+'" data-c="'+hc(id)+'"></canvas><div class="lb">'+p.l+'</div></div>'}
-function render(id){cur=id;setTrack(id);var p=P[id];
-var h='<h2>'+p.t+'</h2>'+p.h.replace(/@(house|gun)/g,function(m,k){return document.getElementById('t-'+k).innerHTML});
-h+='<div class="tiles">'+p.e.map(tile).join('')+'</div>';V.innerHTML=h;
-V.querySelectorAll('canvas[data-i]').forEach(function(c){draw(c,c.dataset.i,COL[+c.dataset.c])});window.scrollTo(0,0)}
-function go(id,noh){if(id==='rand'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&q!==cur});id=k[Math.floor(Math.random()*k.length)];O.textContent='you were teleported by saucy steven.'}
+function hc(s){var h=0;for(var i=0;i<s.length;i++)h+=s.charCodeAt(i);return h%COL.length}
+function tile(id){var p=P[id];return'<div class="tile" role="button" tabindex="0" data-g="'+id+'"><canvas data-i="'+p.i+'" data-c="'+(p.k||COL[hc(id)])+'"></canvas><div class="lb">'+p.l+'</div></div>'}
+function render(id){cur=id;setTrack(id);var p=P[id],es=p.e;
+if(id==='between'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&q!=='nana2'&&q!=='between'&&q!==hist[hist.length-1]});es=[];while(es.length<3)es.push(k.splice(Math.floor(Math.random()*k.length),1)[0]);es.push('void')}
+else es=es.filter(function(q){return q!=='between'||Math.random()<.5});
+var h='<h2>'+p.t+'</h2>'+(p.img?'<img class="pic" src="'+PD+p.img+'" alt="'+p.l+'" onerror="this.outerHTML=\'<p class=dim>[missing: '+PD+p.img+']</p>\'">':'')+p.h.replace(/@(house|gun)/g,function(m,k){return document.getElementById('t-'+k).innerHTML});
+h+='<div class="tiles">'+es.map(tile).join('')+'</div>';V.innerHTML=h;
+V.querySelectorAll('canvas[data-i]').forEach(function(c){draw(c,c.dataset.i,c.dataset.c)});window.scrollTo(0,0)}
+function go(id,noh){if(id==='rand'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&q!=='nana2'&&q!==cur});id=k[Math.floor(Math.random()*k.length)];O.textContent='you were teleported by saucy steven.'}
+else if(id==='slopbeach')O.textContent='the boat took you across the ocean. it took a while. nobody was steering.';
 if(!noh)hist.push(cur);render(id)}
 function tone(f,t,d,ty,v){var o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d)}
 var TR={
@@ -181,16 +236,46 @@ fridge:{n:'the hum',bpm:100,lw:'sine',bw:'sawtooth',L:[0,0,0,0,96,0,0,0,0,0,0,0,
 steven:{n:'saucy',bpm:105,lw:'sawtooth',bw:'square',L:[0,0,60,0,63,0,60,0,58,0,0,0,60,63,65,0,0,0,60,0,63,0,66,0,65,0,63,0,60,0,0,0],B:[36,0,36,36,0,36,39,0,34,0,34,34,0,34,38,0],p:'x.hxs.h.'},
 dark:{n:'the hog sleeps',bpm:80,lw:'triangle',bw:'sawtooth',L:[45,0,0,0,51,0,0,0,45,0,0,0,50,0,0,0,44,0,0,0,0,0,0,0,51,0,50,0,0,0,0,0],B:[33,0,0,0,0,0,0,0,32,0,0,0,0,0,0,0],p:'x.......'},
 question:{n:'is he lord?',bpm:100,lw:'triangle',bw:'triangle',L:[69,0,72,0,76,0,0,0,74,0,77,0,81,0,0,0,79,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],B:[45,0,0,0,0,0,0,0,41,0,0,0,0,0,0,0],p:'x.......'},
-void:{n:'nothing (saucy)',bpm:70,lw:'sine',bw:'sine',L:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,96],B:[24,0,0,0,0,0,0,0],p:'........'}
+void:{n:'nothing (saucy)',bpm:70,lw:'sine',bw:'sine',L:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,96],B:[24,0,0,0,0,0,0,0],p:'........'},
+
+/* ---- THEMED SONGS ---- */
+/* seb: spooky but charming (minor-key music box + little waltzy bass) */
+seb:{n:'haunted but polite',bpm:120,lw:'triangle',bw:'sine',L:[76,0,79,0,83,0,81,0,79,0,76,0,75,0,0,0,76,0,79,0,84,0,83,0,81,0,79,0,76,0,0,0,74,0,77,0,81,0,79,0,77,0,74,0,73,0,0,0,76,81,83,0,81,0,0,0,76,0,0,0,0,0,0,0],B:[45,0,52,0,52,0,40,0,47,0,52,0,52,0,40,0],p:'h.h.h.h.'},
+/* jolyne: persona 4 happy-go-lucky (bright funk, syncopated bass, hi-hats) */
+jol:{n:'sunny day (kind of sad)',bpm:112,lw:'square',bw:'sawtooth',L:[69,0,72,0,74,0,76,79,0,76,0,74,72,0,69,0,67,0,71,0,72,0,74,76,0,74,0,72,71,0,67,0,65,0,69,0,72,0,74,0,77,0,74,0,72,69,0,0,64,67,0,69,0,71,72,0,0,0,0,0,0,0,0,0],B:[45,0,45,52,0,45,0,48,50,0,50,52,0,50,0,48],p:'xhshhxhs'},
+/* ari: weird + out of place (spooktune-ish: bouncy, tritones, wrong notes) */
+ari:{n:'shlorp (wet)',bpm:150,rnd:3,L:[0],B:[0],p:'.'},
+/* joey: postal 2 map muzak (lounge elevator jazz, walking bass, swung hats) */
+joey:{n:'your call is important',bpm:92,lw:'sine',bw:'sine',L:[76,0,0,74,0,72,0,0,69,0,0,72,0,76,0,0,74,0,0,72,0,69,0,0,67,0,71,0,74,0,0,0],B:[36,0,43,0,40,0,43,0,33,0,40,0,36,0,40,0,38,0,45,0,41,0,45,0,31,0,38,0,35,0,38,0],p:'h.s.h.sh'},
+/* nix: metallica (palm-muted gallop riff, double kick) */
+nix:{n:'master of poopets',bpm:150,lw:'sawtooth',bw:'sawtooth',L:[40,40,0,40,40,0,40,43,40,40,0,40,46,0,45,0,40,40,0,40,40,0,40,43,40,40,0,47,0,46,0,45],B:[28,28,0,28,28,0,28,28,28,28,0,28,28,0,28,28],p:'xhsxxhsx'},
+/* sonic bedhog: green hill, but the loops are different lengths so it never lines up */
+bedhog:{n:'green hill (off beat)',bpm:150,lw:'square',bw:'triangle',L:[72,0,79,0,76,79,0,81,0,79,76,0,74,0,72],B:[36,0,43,0,48,0,43,0],p:'x.h.sh.'},
+/* space in-between: liminal. long notes, long silence */
+between:{n:'liminal',bpm:60,lw:'sine',bw:'sine',L:[72,0,0,0,0,0,0,0,0,0,0,0,76,0,0,0,0,0,0,0,0,0,0,0,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],B:[41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],p:'........'},
+/* tmnt blanket: "welcome to the house" remixed -- slow, low, sewage-sloppy */
+tmnt:{n:'welcome to the sewer',bpm:120,rnd:2,L:[0],B:[0],p:'.'},
+/* weed nana: reggae (offbeat skank, one-drop kick) */
+nana:{n:'nana dub',bpm:140,lw:'square',bw:'triangle',L:[0,64,0,64,0,64,0,64,0,62,0,62,0,60,0,60,0,64,0,64,0,64,0,64,0,67,0,67,0,65,0,65],B:[36,0,0,43,0,0,41,0,43,0,0,38,0,0,36,0],p:'h.h.xsh.'},
+/* weed nana 2: same song, but demonic (tritones, screams, double kick, sawtooth) */
+nana2:{n:'nana dub (from hell)',bpm:190,lw:'sawtooth',bw:'sawtooth',L:[0,64,-1,63,0,64,0,70,0,62,-1,68,0,60,0,66,0,64,-1,63,0,64,0,70,-1,67,0,66,0,65,-1,71],B:[36,0,0,42,0,0,41,0,43,0,0,37,0,0,36,36],p:'xhxsxhxs'}
 };
-var MP={home:'home',what:'what',hog:'hog',channel:'arcade',hypercub:'arcade',doctrine:'infomercial',art:'box',faq:'faq',elsewhere:'phone',knock:'phone',question:'question',hall:'hall',kitchen:'kitchen',fridge:'fridge',steven:'steven',basement:'dark',pit:'dark',attic:'box',bathroom:'box',mirror:'box',void:'void',wads:'wads',closet:'closet',tube:'tube',twitch:'twitch',bird:'bird',list:'list',ad:'ad',newyear:'newyear',discord:'discord',origin:'origin'};
+var MP={home:'home',what:'what',hog:'hog',channel:'arcade',hypercub:'arcade',doctrine:'infomercial',art:'box',faq:'faq',elsewhere:'phone',knock:'phone',question:'question',hall:'hall',kitchen:'kitchen',fridge:'fridge',steven:'steven',basement:'dark',pit:'dark',attic:'box',bathroom:'box',mirror:'box',void:'void',wads:'wads',closet:'closet',tube:'tube',twitch:'twitch',bird:'bird',list:'list',ad:'ad',newyear:'newyear',discord:'discord',origin:'origin',
+office:'seb',jolyne:'jol',dvhole:'joey',mansion:'nix',boats:'ari',slopbeach:'ari',tmnt:'tmnt',bedhog:'bedhog',between:'between',nana:'nana',nana2:'nana2'};
 var trk='home',stepI=0;
 function mf(m){return 440*Math.pow(2,(m-69)/12)}
 function nz(t,d,v){var b=ac.createBuffer(1,ac.sampleRate*d|0,ac.sampleRate),a=b.getChannelData(0),i;for(i=0;i<a.length;i++)a[i]=Math.random()*2-1;var s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(g);g.connect(ac.destination);s.start(t)}
 function sw(t,f1,f2,d,ty,v){var o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+d*.8);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d+.01)}
-function seq(){var T=TR[trk],t=ac.currentTime,s=stepI++;if(T.rnd){if(Math.random()<.85)tone([220,261.6,293.7,329.6,392,440,523.3,587.3][Math.floor(Math.random()*8)]*(s%32<16?1:.5),t,.16,'square',.05);if(s%4===0)tone([55,55,65.4,49][(s>>2)%4],t,.4,'sawtooth',.09);if(s%2===1)tone(1800+Math.random()*600,t,.03,'square',.015);return}var m=T.L[s%T.L.length],bm=T.B[s%T.B.length],pc=T.p[s%T.p.length];
+function seq(){var T=TR[trk],t=ac.currentTime,s=stepI++;
+if(T.rnd===2){/* sewage remix: slower, lower, sloppy */
+if(Math.random()<.8)tone([220,261.6,293.7,329.6,392,440,523.3,587.3][Math.floor(Math.random()*8)]*(s%32<16?.5:.25)*(1+(Math.random()-.5)*.06),t,.28,'sawtooth',.05);
+if(s%4===0)tone([55,55,65.4,49][(s>>2)%4]*.5,t,.5,'square',.1);
+if(s%6===0)sw(t,200,45,.45,'sawtooth',.07);
+if(s%3===1)nz(t,.2,.04);return}
+if(T.rnd===3){if(Math.random()<.55)sw(t,120+Math.random()*300,350+Math.random()*900,.1+Math.random()*.1,'sine',.09);if(s%3===0)sw(t,500+Math.random()*400,50+Math.random()*60,.35,'sawtooth',.045);if(Math.random()<.3)nz(t,.12+Math.random()*.2,.06);if(s%8===0){var bn=mf([40,46,41,47][(s>>3)%4]);sw(t,bn,bn*.6,.7,'triangle',.12)}if(Math.random()<.25)tone(mf(60+Math.floor(Math.random()*24)),t,.09,'square',.03);if(s%4===2)sw(t,90,40,.2,'sine',.2);return}
+if(T.rnd){if(Math.random()<.85)tone([220,261.6,293.7,329.6,392,440,523.3,587.3][Math.floor(Math.random()*8)]*(s%32<16?1:.5),t,.16,'square',.05);if(s%4===0)tone([55,55,65.4,49][(s>>2)%4],t,.4,'sawtooth',.09);if(s%2===1)tone(1800+Math.random()*600,t,.03,'square',.015);return}var m=T.L[s%T.L.length],bm=T.B[s%T.B.length],pc=T.p[s%T.p.length];
 if(m>0)tone(mf(m),t,Math.min(.3,60/T.bpm*.8),T.lw,.05);else if(m<0)sw(t,320,110,.22,'sawtooth',.08);
-if(bm>0)tone(mf(bm),t,60/T.bpm,T.bw,.09);
+if(bm>0)tone(mf(bm),t,T.bpm<70?1.5:60/T.bpm,T.bw,.09);
 if(pc==='x')sw(t,150,40,.15,'sine',.25);else if(pc==='h')nz(t,.03,.05);else if(pc==='s')nz(t,.09,.08)}
 function lbl(){document.getElementById('mb').textContent=mus?'♪ '+TR[trk].n:'music: off'}
 function setTrack(id){var k=MP[id]||'home';if(k!==trk){trk=k;stepI=0;if(mus){clearInterval(mus);mus=setInterval(seq,30000/TR[trk].bpm)}}lbl()}
@@ -198,9 +283,9 @@ function music(on){
 if(!on){clearInterval(mus);mus=null;lbl();return}
 try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();
 stepI=0;mus=setInterval(seq,30000/TR[trk].bpm);lbl()}catch(e){}}
-function pop(){var d=document.createElement('div'),c=document.createElement('canvas'),cap=['THE HOG SEES','saucy steven was here','REPENT','buy zorbeez','ULTIMATELY','#getrekt','hello. very good morning','DOUG DOUG DOUG'];
+function pop(){var d=document.createElement('div'),c,cap=['THE HOG SEES','saucy steven was here','REPENT','buy zorbeez','ULTIMATELY','#getrekt','hello. very good morning','DOUG DOUG DOUG'];
 d.className='pop';d.style.left=(4+Math.random()*68)+'%';d.style.top=(8+Math.random()*68)+'%';
-draw(c,TY[Math.floor(Math.random()*TY.length)],COL[Math.floor(Math.random()*4)]);
+{c=document.createElement('canvas');draw(c,TY[Math.floor(Math.random()*TY.length)],COL[Math.floor(Math.random()*COL.length)])}
 var l=document.createElement('div');l.textContent=cap[Math.floor(Math.random()*cap.length)]+' [x]';d.appendChild(c);d.appendChild(l);
 d.onclick=function(){d.remove()};document.body.appendChild(d);pops.push(d);if(pops.length>12)pops.shift().remove();setTimeout(function(){d.remove()},9000)}
 var msgs=["you pressed it.","the cheese has entered a new elbowMANIA!!!","may your tabs be few and your gravel lightly spoonfed bacon!!.","steven. steven. steven but saucy.","error 404: sauce not found. check in kitchen.","the hog has been notified.","weed nana","saucy steven approves of this."];
