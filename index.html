@@ -92,7 +92,6 @@ li::before{content:"> ";animation:cyc 4s ease-in-out infinite}
 
 <script>
 (function(){
-/* PICTURES: every room can have img:'filename.ext' -- files live in the same directory as index.html */
 var PD='';
 var P={
 home:{t:'where will you go?',l:'home',i:'house',h:'@house<p>there are many doors. some of them even lead to more doors. some of which even go places. how cool!!</p><p class="big">THIS HOUSE SCREAMS FOR JUSTICE!!!!</p>',e:['hall','what','knock','rand']},
@@ -240,17 +239,17 @@ void:{n:'nothing (saucy)',bpm:70,lw:'sine',bw:'sine',L:[0,0,0,0,0,0,0,0,0,0,0,0,
 
 /* ---- THEMED SONGS ---- */
 /* seb: spooky but charming (minor-key music box + little waltzy bass) */
-seb:{n:'i am SCARED',bpm:120,lw:'triangle',bw:'sine',L:[76,0,79,0,83,0,81,0,79,0,76,0,75,0,0,0,76,0,79,0,84,0,83,0,81,0,79,0,76,0,0,0,74,0,77,0,81,0,79,0,77,0,74,0,73,0,0,0,76,81,83,0,81,0,0,0,76,0,0,0,0,0,0,0],B:[45,0,52,0,52,0,40,0,47,0,52,0,52,0,40,0],p:'h.h.h.h.'},
+seb:{n:'haunted but polite',bpm:120,lw:'triangle',bw:'sine',L:[76,0,79,0,83,0,81,0,79,0,76,0,75,0,0,0,76,0,79,0,84,0,83,0,81,0,79,0,76,0,0,0,74,0,77,0,81,0,79,0,77,0,74,0,73,0,0,0,76,81,83,0,81,0,0,0,76,0,0,0,0,0,0,0],B:[45,0,52,0,52,0,40,0,47,0,52,0,52,0,40,0],p:'h.h.h.h.'},
 /* jolyne: persona 4 happy-go-lucky (bright funk, syncopated bass, hi-hats) */
 jol:{n:'sunny day (kind of sad)',bpm:112,lw:'square',bw:'sawtooth',L:[69,0,72,0,74,0,76,79,0,76,0,74,72,0,69,0,67,0,71,0,72,0,74,76,0,74,0,72,71,0,67,0,65,0,69,0,72,0,74,0,77,0,74,0,72,69,0,0,64,67,0,69,0,71,72,0,0,0,0,0,0,0,0,0],B:[45,0,45,52,0,45,0,48,50,0,50,52,0,50,0,48],p:'xhshhxhs'},
 /* ari: weird + out of place (spooktune-ish: bouncy, tritones, wrong notes) */
 ari:{n:'shlorp (wet)',bpm:150,rnd:3,L:[0],B:[0],p:'.'},
 /* joey: postal 2 map muzak (lounge elevator jazz, walking bass, swung hats) */
-joey:{n:'yolanda',bpm:92,lw:'sine',bw:'sine',L:[76,0,0,74,0,72,0,0,69,0,0,72,0,76,0,0,74,0,0,72,0,69,0,0,67,0,71,0,74,0,0,0],B:[36,0,43,0,40,0,43,0,33,0,40,0,36,0,40,0,38,0,45,0,41,0,45,0,31,0,38,0,35,0,38,0],p:'h.s.h.sh'},
+joey:{n:'your call is important',bpm:92,lw:'sine',bw:'sine',L:[76,0,0,74,0,72,0,0,69,0,0,72,0,76,0,0,74,0,0,72,0,69,0,0,67,0,71,0,74,0,0,0],B:[36,0,43,0,40,0,43,0,33,0,40,0,36,0,40,0,38,0,45,0,41,0,45,0,31,0,38,0,35,0,38,0],p:'h.s.h.sh'},
 /* nix: metallica (palm-muted gallop riff, double kick) */
 nix:{n:'master of poopets',bpm:150,lw:'sawtooth',bw:'sawtooth',L:[40,40,0,40,40,0,40,43,40,40,0,40,46,0,45,0,40,40,0,40,40,0,40,43,40,40,0,47,0,46,0,45],B:[28,28,0,28,28,0,28,28,28,28,0,28,28,0,28,28],p:'xhsxxhsx'},
 /* sonic bedhog: green hill, but the loops are different lengths so it never lines up */
-bedhog:{n:'green hill ozone',bpm:150,lw:'square',bw:'triangle',L:[72,0,79,0,76,79,0,81,0,79,76,0,74,0,72],B:[36,0,43,0,48,0,43,0],p:'x.h.sh.'},
+bedhog:{n:'green hill (off beat)',bpm:150,lw:'square',bw:'triangle',L:[72,0,79,0,76,79,0,81,0,79,76,0,74,0,72],B:[36,0,43,0,48,0,43,0],p:'x.h.sh.'},
 /* space in-between: liminal. long notes, long silence */
 between:{n:'liminal',bpm:60,lw:'sine',bw:'sine',L:[72,0,0,0,0,0,0,0,0,0,0,0,76,0,0,0,0,0,0,0,0,0,0,0,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],B:[41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],p:'........'},
 /* tmnt blanket: "welcome to the house" remixed -- slow, low, sewage-sloppy */
@@ -288,9 +287,9 @@ d.className='pop';d.style.left=(4+Math.random()*68)+'%';d.style.top=(8+Math.rand
 {c=document.createElement('canvas');draw(c,TY[Math.floor(Math.random()*TY.length)],COL[Math.floor(Math.random()*COL.length)])}
 var l=document.createElement('div');l.textContent=cap[Math.floor(Math.random()*cap.length)]+' [x]';d.appendChild(c);d.appendChild(l);
 d.onclick=function(){d.remove()};document.body.appendChild(d);pops.push(d);if(pops.length>12)pops.shift().remove();setTimeout(function(){d.remove()},9000)}
-var msgs=["you pressed it.","the cheese has entered a new elbowMANIA!!!","DEATH TO HERETICS!!! OOO-RAH!!!!","steven. steven. steven but saucy.","error 404: sauce not found. check in kitchen.","the hog has been notified of your misdeeds.","weed nana","saucy steven is getting SAUCY with it"];
+var msgs=["you pressed it.","the cheese has entered a new elbowMANIA!!!","may your tabs be few and your gravel lightly spoonfed bacon!!.","steven. steven. steven but saucy.","error 404: sauce not found. check in kitchen.","the hog has been notified.","weed nana","saucy steven approves of this."];
 function surprise(){n++;O.textContent=msgs[Math.floor(Math.random()*msgs.length)];
-var dk=document.documentElement.getAttribute('data-theme')!=='light';document.documentElement.setAttribute('data-theme',dk?'dark');
+var dk=document.documentElement.getAttribute('data-theme')!=='light';document.documentElement.setAttribute('data-theme',dk?'light':'dark');
 document.body.style.filter='invert(1)';setTimeout(function(){document.body.style.filter=''},130);
 for(var i=0;i<4;i++)setTimeout(pop,i*160);
 if(!mus)music(true);
