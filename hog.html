@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The True Teachings of Father Hog</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:#1d140c;--fg:#e8d3a6;--dim:#a08a5c;--ac:#ff4500;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 "Courier New",ui-monospace,Menlo,monospace;text-align:center}
+main{max-width:760px;margin:0 auto;padding:24px 18px 64px}
+pre{margin:0;overflow:visible;white-space:pre}
+a{color:var(--ac);text-decoration:none;border-bottom:1px dotted var(--ac)}
+a:hover,.go:hover{background:var(--ac);color:#000;border-color:transparent}
+.go{color:var(--ac);cursor:pointer;border-bottom:1px dotted var(--ac)}
+h1{font-style:italic;font-weight:normal;font-size:1.3rem;margin:26px 0 10px}
+h1::before{content:"## ";color:var(--ac)}
+h2{font-style:italic;font-weight:normal;font-size:1.2rem;margin:34px 0 10px}
+h2::before{content:"## ";color:var(--ac)}
+.dim{color:var(--dim)}.sm{font-size:.85rem}
+.decree{color:#ff3b1f;font-weight:bold;font-size:1.15rem;letter-spacing:.05em;line-height:1.5;margin:22px auto;max-width:600px}
+.mon{margin:16px auto;max-width:520px;line-height:1.5}
+.mon .gb{display:block;color:var(--dim);font-size:.85rem}
+.crest{display:block;width:min(320px,80%);height:auto;margin:16px auto;border:2px solid var(--ac);box-shadow:6px 6px 0 #6b4a22}
+ul{list-style:none;padding:0;margin:0}
+li{margin:10px 0}
+li::before{content:"> ";color:var(--ac)}
+#sky{position:relative;height:250px;overflow:hidden;margin:18px auto;max-width:640px;border-top:1px dotted #6b4a22}
+#plane{position:absolute;top:10px;left:-240px;color:var(--fg);font-size:13px;line-height:1.1;text-align:left;animation:fly 18s linear infinite}
+@keyframes fly{from{left:-240px}to{left:100%}}
+#dunes{position:absolute;left:0;right:0;bottom:0;color:#b8903f;font-size:13px;line-height:1.15;text-align:center}
+.bomb{position:absolute;width:12px;height:12px;border-radius:50%;background:#ff4500}
+.boom{position:absolute;width:44px;height:44px}
+.cu{display:block;margin:14px auto;image-rendering:pixelated}
+button{background:transparent;color:var(--ac);border:1px solid var(--ac);font:inherit;padding:6px 16px;cursor:pointer;margin:8px}
+button:hover{background:var(--ac);color:#000}
+#ans{color:#ff3b1f;min-height:1.6em}
+@media (prefers-reduced-motion:reduce){#plane{animation:none;left:40%}}
+</style>
+</head>
+<body>
+<main>
+<p>[<a href="index.html">back to the house</a>] [<span class="go" id="mb" role="button" tabindex="0">music: off</span>]</p>
+
+<h1>the true teachings of father hog</h1>
+
+<div id="sky" aria-hidden="true">
+<pre id="plane">   __|__
+--o--o--(_)--o--o--</pre>
+<pre id="dunes"></pre>
+</div>
+<p class="dim sm">that is the bomber plane. the same kind the boomers fly in the wasteland.<br>do not look up.</p>
+
+<p class="decree">HE WILL REIGN HELLFIRE DOWN UPON THE IGNORANT SAVAGES AND HERETICS OF THE WASTELAND!!!</p>
+
+<div class="mon" data-mon></div>
+
+<img class="crest" src="pig.png" alt="the crest of the holy neon knight of hog" onerror="this.outerHTML='<p class=dim>[missing: pig.png]</p>'">
+<p class="dim sm">the crest of the holy neon knight of hog.<br>look upon it. it is looking upon you.</p>
+
+<h2>the teachings</h2>
+<ul>
+<li>father hog hates ALL heretics.</li>
+<li>a heretic is anyone who WILLINGLY chooses to disobey his orders.</li>
+<li>for as long as you choose to disobey, he will hate you. there is no clock on this. he does not forgive on a timer.</li>
+<li>he will blow you up with his bomber plane. like the boomers in the mojave. like the boomers, but VERY aware.</li>
+<li>the ignorant are not spared. the ignorant simply do not know it is coming. this is worse.</li>
+<li>father hog loves the copper block. the copper block is holy. do not oxidize it. waxed copper is his favorite.</li>
+<li>hold the line.</li>
+</ul>
+
+<div class="mon" data-mon></div>
+
+<img class="cu" src="copper.png" width="112" height="112" alt="the holy copper block" onerror="this.outerHTML='<p class=dim>[missing: copper.png]</p>'">
+<p class="dim sm">the copper block.<br>(the hog loves it more than he loves you.)</p>
+
+<h2>are you a heretic?</h2>
+<p><button id="no">no. i obey.</button><button id="yes">yes. i disobey.</button></p>
+<p id="ans" aria-live="polite"></p>
+
+<div class="mon" data-mon></div>
+<p class="dim sm" style="margin-top:40px">hold the line 🤑🤑🤑</p>
+</main>
+
+<script>
+(function(){
+/* chinese gibberish: always 2-3 whole sentences. money face: only ever 1 or 3. */
+var GB='財發錢富金貴豬霸暴吃肥買賣運福祿壽喜炸轟愛你我他好天地人大小中國家門水火山風';
+function ch(k){var s='';while(k--)s+=GB[Math.floor(Math.random()*GB.length)];return s}
+function gib(){var k=2+Math.floor(Math.random()*2),o='';while(k--)o+=ch(4+Math.floor(Math.random()*3))+'，'+ch(4+Math.floor(Math.random()*3))+'。';return o}
+function pk(){return Math.random()<.5?'🤑':'🤑🤑🤑'}
+document.querySelectorAll('[data-mon]').forEach(function(e){e.innerHTML='<span>'+pk()+'</span><span class="gb">'+gib()+'</span>'});
+
+/* the desert: built from a half and mirrored so it is perfectly symmetrical */
+var SW={'(':')',')':'(','[':']',']':'[','/':'\\','\\':'/','<':'>','>':'<','`':"'","'":'`'};
+function mir(l){return l+l.split('').reverse().map(function(c){return SW[c]||c}).join('')}
+var half=['  \\|/                       .-~~~-.',
+          '   |       .-~~-.        /       ',
+          ' __|__.-~\'`        `~-.~/        '];
+document.getElementById('dunes').textContent=half.map(mir).join('\n');
+
+/* the bomber */
+var sky=document.getElementById('sky'),plane=document.getElementById('plane');
+var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function boom(x,y){thud();var g=document.createElement('img');g.className='boom';g.alt='';g.src='explode.gif?'+Date.now();g.style.left=(x-22)+'px';g.style.top=(y-30)+'px';g.onerror=function(){g.remove()};sky.appendChild(g);setTimeout(function(){g.remove()},900)}
+function drop(x){var s=sky.getBoundingClientRect();
+if(x===undefined){var p=plane.getBoundingClientRect();x=p.left+p.width/2-s.left+(Math.random()-.5)*90}
+if(x<12||x>s.width-12)return;
+var b=document.createElement('div');b.className='bomb';b.style.left=(x-6)+'px';b.style.top='34px';sky.appendChild(b);
+var land=150+Math.random()*60;
+var a=b.animate([{transform:'translateY(0)'},{transform:'translateY('+(land-34)+'px)'}],{duration:600+Math.random()*400,easing:'ease-in',fill:'forwards'});
+a.onfinish=function(){b.remove();boom(x,land)}}
+function loop(){drop();setTimeout(loop,500+Math.random()*1100)}
+if(!calm)setTimeout(loop,1200);
+
+/* the song: march of the bomber (D phrygian dominant, brass march, snare, distant booms) */
+var ac,mus=null,stepI=0,mb=document.getElementById('mb');
+var SONG={n:'march of the bomber',bpm:100,
+L:[62,0,63,66,0,63,62,0,62,0,63,66,0,69,67,0,70,0,69,67,0,66,63,0,62,0,0,0,0,0,0,0],
+B:[38,0,38,0,45,0,38,0,38,0,38,0,43,0,45,0],p:'x.s.xxs.'};
+function mf(m){return 440*Math.pow(2,(m-69)/12)}
+function tone(f,t,d,ty,v){var o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d)}
+function sw(t,f1,f2,d,ty,v){var o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+d*.8);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d+.01)}
+function nz(t,d,v){var b=ac.createBuffer(1,ac.sampleRate*d|0,ac.sampleRate),a=b.getChannelData(0),i;for(i=0;i<a.length;i++)a[i]=Math.random()*2-1;var q=ac.createBufferSource(),g=ac.createGain();q.buffer=b;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);q.connect(g);g.connect(ac.destination);q.start(t)}
+function seq(){var t=ac.currentTime,s=stepI++,m=SONG.L[s%SONG.L.length],b=SONG.B[s%SONG.B.length],c=SONG.p[s%SONG.p.length];
+if(m>0)tone(mf(m),t,.28,'sawtooth',.045);
+if(b>0)tone(mf(b),t,.4,'triangle',.1);
+if(c==='x')sw(t,150,40,.15,'sine',.25);else if(c==='s')nz(t,.09,.08);
+if(s%32===16)sw(t,90,30,.6,'sine',.18)}
+function thud(){if(mus)sw(ac.currentTime,110,35,.35,'sine',.1)}
+function music(on){if(!on){clearInterval(mus);mus=null;mb.textContent='music: off';return}
+try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();stepI=0;mus=setInterval(seq,30000/SONG.bpm);mb.textContent='♪ '+SONG.n}catch(e){}}
+mb.onclick=function(){music(!mus)};
+mb.onkeydown=function(e){if(e.key==='Enter')mb.click()};
+document.getElementById('no').onclick=function(){document.getElementById('ans').textContent='good. the hog is VERY aware that you said that. keep it up.'};
+document.getElementById('yes').onclick=function(){document.getElementById('ans').textContent='YOU HAVE CHOSEN. THE BOMBER IS INBOUND.';
+if(calm)return;var w=sky.getBoundingClientRect().width;for(var i=0;i<14;i++)setTimeout(function(){drop(20+Math.random()*(w-40))},i*220)};
+})();
+</script>
+</body>
+</html>
