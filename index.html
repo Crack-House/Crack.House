@@ -38,13 +38,13 @@ li::before{content:"> ";animation:cyc 4s ease-in-out infinite}
 .mon{margin:16px auto;max-width:520px;line-height:1.5}
 .mon .gb{display:block;color:var(--dim);font-size:.85rem}
 .pic{display:block;width:min(560px,100%);height:auto;margin:14px auto;border:2px solid #ff0062;box-shadow:6px 6px 0 #00ffd0}
-.pic[data-open]{cursor:pointer}
+.pic[data-open]:not([data-s]){cursor:pointer}
 .row{display:flex;gap:8px;justify-content:center;flex-wrap:nowrap;margin:14px auto}
 .row .pic{flex:1 1 0;min-width:0;width:auto;margin:0;box-shadow:3px 3px 0 #00ffd0}
-.hopbox{position:relative;height:130px;margin:14px auto;max-width:560px;border-bottom:2px dotted var(--dim)}
-.bun{position:absolute;bottom:0;width:48px;height:auto;transition:left .7s linear}
+.hopbox{position:relative;height:210px;margin:14px auto;max-width:560px;border-bottom:2px dotted var(--dim)}
+.bun{position:absolute;bottom:0;width:120px;height:auto;transition:left .7s linear}
 .bun.hp{animation:hp .35s ease-out 2}
-@keyframes hp{50%{translate:0 -30px}}
+@keyframes hp{50%{translate:0 -55px}}
 .tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:26px 0 0}
 .tile{width:112px;cursor:pointer}
 .tile canvas{display:block;width:112px;height:112px;image-rendering:pixelated;border:2px solid #ff4500}
@@ -134,7 +134,7 @@ ad:{t:'earn the cock',l:'cocksure',i:'trophy',h:'<p>KAAKBUY MO SAY!<br>BUHOOY! S
 newyear:{t:'HEY HEY HEY HEY!',l:'china',i:'lantern',h:'<p>chinese new year propaganda hype song.<br>play it loud. the hog insists.</p><p><a href="https://www.youtube.com/watch?v=tYa7RZpph10" target="_blank" rel="noopener noreferrer">the hype song</a></p>',e:['bird','hall','doctrine']},
 discord:{t:'jumbo josh on the mic brah',l:'jumbo josh sings discord',i:'mic',h:'<p>jumbo josh on the mic brah.<br>sit on my lap brah. listen to me sing.</p><p><a href="https://www.youtube.com/watch?v=_k_fBK4aaLk&amp;list=RD_k_fBK4aaLk&amp;start_radio=1&amp;sttick=0" target="_blank" rel="noopener noreferrer">jumbo josh sings discord</a></p>',e:['twitch','pit','mirror']},
 origin:{t:'the original house',l:'the original',i:'crosshair',h:'<p>before this house there was another house. there were many frags to be had there.<br>this are a parody and also a tribute. CLICK FOR PENIS ADVICE!!!!!!</p><p><a href="https://frag.house" target="_blank" rel="noopener noreferrer">frag.house</a></p>',e:['home','void','what']},
-office:{t:'Hornswaggler\'s Office',l:'hornswaggler',i:'star4',k:'#ff1493',img:'sebastion.png',h:'<p>the mighty hornswaggler is in.<br>the mighty hornswaggler is always in.<br>please do not touch the him it. it\'s desk is smoothy. smoothie like drinks!! (#doesitlikesmoothies?)</p><p class="dim sm"> (there is a computer on its desk with an open command prompt) </p>',e:['basement','pit']},
+office:{t:'Hornswaggler\'s Office',l:'hornswaggler',i:'star4',k:'#ff1493',img:'sebastion.png',click:{url:'terminal.html',secret:1},h:'<p>the mighty hornswaggler is in.<br>the mighty hornswaggler is always in.<br>please do not touch the him it. it\'s desk is smoothy. smoothie like drinks!! (#doesitlikesmoothies?)</p><p class="dim sm"> (there is a computer on its desk with an open command prompt) </p>',e:['basement','pit']},
 jolyne:{t:'jolyne',l:'jolyne',i:'boombox',k:'#00ffd0',img:'jolyne.png',h:'<p>the kicklemiester has entered the kitchen. yo gabba gabba.<br>she is a parrot eater. (allegedly.) (sigma.)</p>',e:['kitchen','steven','hall']},
 dvhole:{t:'disablevizard hole',l:'disablevizard hole',i:'wizard',k:'#b84dff',img:'joey.jpg',click:{url:'joey_comms.png',blank:1},h:'<p>you fell in the pit. joey lives down here. in the pit.<br>capabilities: peeing &amp; pooping #buttsauce<br>the muzak is VERY smooth.<br><span class="dim sm">(if you want to pay joey for a commision. click his picture. its got his info on it.. do it... if you #DARE.)</span></p>',e:['pit','ad','void']},
 mansion:{t:'psychopants psycho-mansion',l:'abnormally large stall',i:'pants',k:'#00a2ff',img:'nix.jpg',h:'<p>psychopantis...........<br>the realest guy you will EVER friendslop.<br><span class="dim sm">(he lives in the bathroom. there is a mansion in the bathroom. do not ask.)</span></p>',e:['bathroom','mirror']},
@@ -159,6 +159,7 @@ beasts:{t:'BEASTS',l:'BEASTS',i:'bunny',k:'#ff0062',img:'BUNNIES.png',click:{url
 graffiti:{t:'graffiti room',l:'graffiti',i:'spray',k:'#ff9ad5',img:'graffiti.png',h:'<p>oh no!! it appears someone has GRAFFITIED this room!!<br>who would DO this?? (it was probably steven.)</p><p class="dim sm">(it says something. you cannot read it. it is VERY saucy.)</p>',e:['kill','garage','hall']},
 tmas:{t:'TELL ME A STORY',l:'tell me a story',i:'book',k:'#b84dff',imgs:['tmas.png','tmas2.png','tmas3.png','tmas4.png'],row:1,h:'<p>key. and peele.<br>they are here. their clones are here too. (something went wrong during the process... something about low mcchicken levels) they have always been here. they are on standby.</p><p> KEY AND PEEL! TELL ME A STORY! with a beginning and a middle and a sleepy little end.</p><p class="dim sm">(say it with your whole chest: KEY AND PEELE. TELL ME A STORY.)</p>',e:['tube','kill','hall','void']},
 bob:{t:'frutiger pee spink bap',l:'spink bap',i:'drip',k:'#fff700',img:'BOB.png',h:'<p> spink bap 🤣 <br>he is made of PEE. (urine.) #pissmogged</p><p class="dim sm">(the water here is very yellow. it may not be water.)</p>',e:['aquarium','boats','void']},
+vault:{t:'the hornswaggler\'s vault',l:'the vault',i:'trophy',k:'#fff700',h:'<p>the golden smoothie hums in your pocket. the door was never locked. it was waiting for you.<br>inside: one (1) enormous gold-plated hog, a fountain of smoothie that never ends, and a wall of names of everyone who ever liked smoothies.<br><span class="dim sm">(yours is at the bottom. it is spelled wrong. that is ok.)</span></p>',e:['office','basement','hog']},
 rand:{t:'???',l:'???',i:'noise',h:'',e:[]}
 };
 var HID=['nana2','tmnt','shrine'];
@@ -241,13 +242,14 @@ g.putImageData(im,0,0)}
 function hc(s){var h=0;for(var i=0;i<s.length;i++)h+=s.charCodeAt(i);return h%COL.length}
 function tile(id){var p=P[id];return'<div class="tile" role="button" tabindex="0" data-g="'+id+'"><canvas data-i="'+p.i+'" data-c="'+(p.k||COL[hc(id)])+'"></canvas><div class="lb">'+p.l+'</div></div>'}
 function startHop(){var b=document.getElementById('hopbox');if(!b)return;var bs=[];
-for(var i=0;i<3;i++){var d=document.createElement('img');d.src=PD+'bunny.png';d.className='bun';d.alt='bunny';d.style.left=(Math.random()*85)+'%';b.appendChild(d);bs.push(d)}
-hopT=setInterval(function(){bs.forEach(function(d){if(Math.random()<.6){var cx=parseFloat(d.style.left),nx=Math.random()*88;d.style.scale=nx<cx?'-1 1':'1 1';d.style.left=nx+'%';d.classList.add('hp');setTimeout(function(){d.classList.remove('hp')},720)}})},900)}
+for(var i=0;i<3;i++){var d=document.createElement('img');d.src=PD+'bunny.png';d.className='bun';d.alt='bunny';d.style.left=(Math.random()*76)+'%';b.appendChild(d);bs.push(d)}
+hopT=setInterval(function(){bs.forEach(function(d){if(Math.random()<.6){var cx=parseFloat(d.style.left),nx=Math.random()*76;d.style.scale=nx<cx?'-1 1':'1 1';d.style.left=nx+'%';d.classList.add('hp');setTimeout(function(){d.classList.remove('hp')},720)}})},900)}
 function render(id){cur=id;setTrack(id);var p=P[id],es=p.e;
 if(id==='between'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&HID.indexOf(q)<0&&q!=='between'&&q!==hist[hist.length-1]});es=[];while(es.length<3)es.push(k.splice(Math.floor(Math.random()*k.length),1)[0]);es.push('void')}
 else es=es.filter(function(q){return q!=='between'||Math.random()<.5});
+if(id==='office'){try{if(localStorage.getItem('ch_prize')==='1')es=es.concat('vault')}catch(e){}}
 var im=p.imgs||(p.img?[p.img]:[]);
-var pics=im.map(function(f,i){return'<img class="pic" src="'+PD+f+'" alt="'+p.l+'"'+(i===0&&p.click?' data-open="'+p.click.url+'" data-blank="'+(p.click.blank?1:0)+'" title="click me"':'')+' onerror="this.outerHTML=\'<p class=dim>[missing: '+PD+f+']</p>\'">'}).join('');
+var pics=im.map(function(f,i){return'<img class="pic" src="'+PD+f+'" alt="'+p.l+'"'+(i===0&&p.click?' data-open="'+p.click.url+'" data-blank="'+(p.click.blank?1:0)+'"'+(p.click.secret?' data-s="1"':' title="click me"'):'')+' onerror="this.outerHTML=\'<p class=dim>[missing: '+PD+f+']</p>\'">'}).join('');
 if(p.row)pics='<div class="row">'+pics+'</div>';
 var h='<h2>'+p.t+'</h2>'+mon()+pics+p.h.replace(/@(house|gun)/g,function(m,k){return document.getElementById('t-'+k).innerHTML});
 h+=mon()+'<div class="tiles">'+es.map(tile).join('')+'</div>';V.innerHTML=h;
@@ -307,12 +309,13 @@ luna:{n:'luna.exe (??)',bpm:170,rnd:4,L:[0],B:[0],p:'.'},
 beasts:{n:'FINGERS (crunch)',bpm:210,lw:'sawtooth',bw:'sawtooth',L:[40,40,41,40,40,43,40,40,46,45,40,40,41,40,47,-1,40,40,41,40,40,43,40,40,46,45,40,-1,47,46,45,0],B:[28,28,28,28,28,28,31,28,28,28,28,28,29,28,34,33],p:'xsxxsxsx'},
 graf:{n:'tag you\'re it',bpm:95,lw:'square',bw:'triangle',L:[57,0,0,60,0,57,0,0,62,0,60,0,57,0,0,0],B:[33,0,0,33,0,36,0,0],p:'xhsh.xsh'},
 tmas:{n:'sleepy time (key and peele)',bpm:84,lw:'sine',bw:'triangle',L:[72,0,76,0,79,0,76,0,74,0,77,0,81,0,77,0,72,0,76,0,79,0,84,0,83,0,0,0,0,0,0,0],B:[36,0,0,0,43,0,0,0],p:'........'},
-bob:{n:'aero bubble (trickle)',bpm:118,lw:'sine',bw:'triangle',L:[76,0,79,83,0,81,0,79,76,0,74,0,72,76,-1,0,77,0,81,84,0,83,0,81,77,0,76,-1,-1,0,0,0],B:[36,0,43,0,41,0,48,0],p:'h.h.x.hs'}
+bob:{n:'aero bubble (trickle)',bpm:118,lw:'sine',bw:'triangle',L:[76,0,79,83,0,81,0,79,76,0,74,0,72,76,-1,0,77,0,81,84,0,83,0,81,77,0,76,-1,-1,0,0,0],B:[36,0,43,0,41,0,48,0],p:'h.h.x.hs'},
+vault:{n:'the golden smoothie (fanfare)',bpm:104,lw:'square',bw:'triangle',L:[72,0,76,0,79,0,84,0,83,0,79,0,76,0,79,0,77,0,81,0,84,0,89,0,88,0,84,0,81,0,84,0,79,0,83,0,86,0,91,0,90,0,86,0,83,0,86,0,84,0,0,0,79,0,0,0,76,0,0,0,0,0,0,0],B:[48,0,48,0,55,0,55,0,53,0,53,0,60,0,60,0,55,0,55,0,62,0,62,0,48,0,0,0,0,0,0,0],p:'x.hsx.hs'}
 };
 var MP={home:'home',what:'what',hog:'hog',channel:'arcade',hypercub:'arcade',doctrine:'infomercial',art:'box',faq:'faq',elsewhere:'phone',knock:'phone',question:'question',hall:'hall',kitchen:'kitchen',fridge:'fridge',steven:'steven',basement:'dark',pit:'dark',attic:'box',bathroom:'box',mirror:'box',void:'void',wads:'wads',closet:'closet',tube:'tube',twitch:'twitch',bird:'bird',list:'list',ad:'ad',newyear:'newyear',discord:'discord',origin:'origin',
 office:'seb',jolyne:'jol',dvhole:'joey',mansion:'nix',boats:'dock',slopbeach:'ari',jroom:'speed',tmnt:'tmnt',bedhog:'bedhog',between:'between',nana:'nana',nana2:'nana2',
 shrine:'anthem',laundry:'spin',garage:'blues',roof:'static',library:'shh',aquarium:'tank',vending:'b4',copper:'holy',
-kill:'luna',beasts:'beasts',graffiti:'graf',tmas:'tmas',bob:'bob'};
+kill:'luna',beasts:'beasts',graffiti:'graf',tmas:'tmas',bob:'bob',vault:'vault'};
 var trk='home',stepI=0;
 function mf(m){return 440*Math.pow(2,(m-69)/12)}
 function nz(t,d,v){var b=ac.createBuffer(1,ac.sampleRate*d|0,ac.sampleRate),a=b.getChannelData(0),i;for(i=0;i<a.length;i++)a[i]=Math.random()*2-1;var s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(g);g.connect(ac.destination);s.start(t)}
