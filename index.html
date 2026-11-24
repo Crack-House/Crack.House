@@ -39,6 +39,12 @@ li::before{content:"> ";animation:cyc 4s ease-in-out infinite}
 .mon .gb{display:block;color:var(--dim);font-size:.85rem}
 .pic{display:block;width:min(560px,100%);height:auto;margin:14px auto;border:2px solid #ff0062;box-shadow:6px 6px 0 #00ffd0}
 .pic[data-open]{cursor:pointer}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:nowrap;margin:14px auto}
+.row .pic{flex:1 1 0;min-width:0;width:auto;margin:0;box-shadow:3px 3px 0 #00ffd0}
+.hopbox{position:relative;height:130px;margin:14px auto;max-width:560px;border-bottom:2px dotted var(--dim)}
+.bun{position:absolute;bottom:0;width:48px;height:auto;transition:left .7s linear}
+.bun.hp{animation:hp .35s ease-out 2}
+@keyframes hp{50%{translate:0 -30px}}
 .tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:26px 0 0}
 .tile{width:112px;cursor:pointer}
 .tile canvas{display:block;width:112px;height:112px;image-rendering:pixelated;border:2px solid #ff4500}
@@ -120,7 +126,7 @@ mirror:{t:'the mirror',l:'mirror',i:'mirror',h:'<p>you see your relfection in th
 void:{t:'nothing',l:'the void',i:'void',h:'<p>theres nothing there.<br><span class="dim">(the nothing is saucy)</span></p>',e:['home','pit','between','rand']},
 wads:{t:'the wad room',l:'wad room',i:'skull',h:'<p>doom megawad with 30 lvls. 3 are finished. #itsnotdoneyet </p><p><a href="https://ginklejeff.github.io/Gink-Dooms/" target="_blank" rel="noopener noreferrer">ginklejeff.github.io/Gink-Dooms</a><br><span class="dim sm">(opens in a new tab. the hog said ok)</span></p>',e:['elsewhere','pit','void']},
 closet:{t:'pronouns page',l:'closet',i:'hanger',h:'<p>the hog respects your pronounds.</p><p><a href="https://en.pronouns.page/@ginklejeff" target="_blank" rel="noopener noreferrer">en.pronouns.page/@ginklejeff</a></p><p class="dim sm">there is a very smoky door in the back.</p>',e:['mirror','bathroom','nana','hall']},
-tube:{t:'the broadcast room',l:'broadcast',i:'tv',h:'<p>this is the channel where the things are. look at it. even the hog is subscribed.</p><p><a href="https://www.youtube.com/@GinkleJeff" target="_blank" rel="noopener noreferrer">youtube.com/@GinkleJeff</a></p>',e:['twitch','list','ad','vending']},
+tube:{t:'the broadcast room',l:'broadcast',i:'tv',h:'<p>this is the channel where the things are. look at it. even the hog is subscribed.</p><p><a href="https://www.youtube.com/@GinkleJeff" target="_blank" rel="noopener noreferrer">youtube.com/@GinkleJeff</a></p>',e:['twitch','list','ad','vending','tmas']},
 twitch:{t:'broadcast room #2',l:'broadcast #2',i:'twitch',h:'<p>sometimes i am live.<br>sometimes the chat is just steven. hes VERY saucy. if you havent heard.</p><p><a href="https://www.twitch.tv/ginklejeff" target="_blank" rel="noopener noreferrer">twitch.tv/ginklejeff</a></p>',e:['tube','bird','discord']},
 bird:{t:'the bird cage',l:'bird cage',i:'bird',h:'<p>it used to be a bird. now it is an X.<br>the bird is somewhere in the walls still. *sigh* hope we can find that guy.</p><p><a href="https://x.com/ginklesauce" target="_blank" rel="noopener noreferrer">x.com/ginklesauce</a></p>',e:['twitch','attic','roof','newyear']},
 list:{t:'CURTIS BIG LIST OF THINGS',l:'CURTIS',i:'list',h:'<p>my favorite video of all time.<br>hope you are ready cause its a #BLAST</p><p><a href="https://www.youtube.com/watch?v=hwdBNas79MU&amp;list=PLAxcxUGXrZLkevKxzUZGUe9VOZZBh85jY&amp;index=14" target="_blank" rel="noopener noreferrer">Curtis’ Big List of Things</a></p>',e:['tube','hypercub','void']},
@@ -142,16 +148,21 @@ between:{t:'the space in-between',l:'the space in-between',i:'corridor',k:'#b84d
 nana:{t:'weed nana',l:'weed nana',i:'leaf',k:'#39ff14',img:'weed_nana.png',h:'<p>nana has been here since before the house.<br>she is chill. she is VERY chill.<br><span class="dim sm">there is a door behind her chair. the doorknob is warm.</span></p>',e:['closet','nana2','void']},
 nana2:{t:'weed nana 2: the evil weed dimension',l:'weed nana 2',i:'leaf2',k:'#ff0062',img:'weed_nana_2.jpg',h:'<p>xombies from planet hell have opened a rift into the EVIL weed dimension and are now AFTER grannies awesome obelisk weed<br>#weednanachronicles #weedoftime #robertjordan #weednanafromhell #xombies</p>',e:['nana']},
 laundry:{t:'the laundromat',l:'laundromat',i:'washer',k:'#00a2ff',h:'<p>one washing machine is running. there is nothing in it.<br>it has been running since before the house.<br><span class="dim sm">(one single sock keeps coming out. it is VERY saucy.)</span></p>',e:['kitchen','garage']},
-garage:{t:'the garage',l:'garage',i:'car',k:'#ff4500',h:'<p>a car with no wheels, sitting on four copies of the same brick.<br>there is an oil stain on the floor in the shape of the hog.<br><span class="dim sm">(the garage door is a door. it is also a hog.)</span></p>',e:['hall','laundry','vending','roof']},
+garage:{t:'the garage',l:'garage',i:'car',k:'#ff4500',h:'<p>a car with no wheels, sitting on four copies of the same brick.<br>there is an oil stain on the floor in the shape of the hog.<br><span class="dim sm">(the garage door is a door. it is also a hog.)</span></p>',e:['hall','laundry','vending','roof','kill','graffiti']},
 roof:{t:'the roof',l:'the roof',i:'antenna',k:'#fff700',h:'<p>an antenna that picks up exactly one channel: the hog, humming.<br>the sky is a very flat shade of cyan tonight.</p>',e:['attic','garage','bird']},
 library:{t:'the cursed library',l:'cursed library',i:'book',k:'#b84dff',h:'<p>every book is the same book. every book is titled "the".<br>shhh. the librarian is a mirror.</p>',e:['doctrine','void']},
-aquarium:{t:'the aquarium',l:'aquarium',i:'fish',k:'#00ffd0',h:'<p>one fish. one very large tank. the fish is looking at you.<br>the tank is full of buttsauce. (it is not dead.)</p>',e:['pit','boats']},
+aquarium:{t:'the aquarium',l:'aquarium',i:'fish',k:'#00ffd0',h:'<p>one fish. one very large tank. the fish is looking at you.<br>the tank is full of buttsauce. (it is not dead.)</p>',e:['pit','boats','bob']},
 vending:{t:'the vending machine',l:'vending machine',i:'vend',k:'#ff9ad5',h:'<p>a vending machine with exactly one button: B4.<br>everything inside is zorbeez. the price is "ur soul (or $1.50)".</p>',e:['hall','garage','tube']},
 copper:{t:'the copper block',l:'the copper block',i:'copper',k:'#ff4500',img:'copper.png',h:'<p>a single block of copper. waxed. holy.<br>the hog loves this block more than he loves you. more than anyone.<br><span class="dim sm">(do not oxidize it.)</span></p>',e:['basement','hog']},
+kill:{t:'KILL\'s room',l:'KILL',i:'bolt',k:'#39ff14',img:'KILL.png',h:'<div class="hopbox" id="hopbox"></div>',e:['garage','hog','pit','beasts','graffiti','tmas']},
+beasts:{t:'BEASTS',l:'BEASTS',i:'bunny',k:'#ff0062',img:'BUNNIES.png',click:{url:'https://www.youtube.com/watch?v=-X2atEH7nCg',blank:1},h:'<p>these are KILL\'s bunnies. they are NOT soft.<br>ferocious hound-beasts. they rip your fingers off and eat them like little carrots. crunch crunch crunch.<br>do NOT offer them a hand. do not offer them a pinky. THEY WILL TAKE THE WHOLE HAND.</p><p class="dim sm">(click the picture. if you dare. the hog already knows.)</p>',e:['kill','hog']},
+graffiti:{t:'graffiti room',l:'graffiti',i:'spray',k:'#ff9ad5',img:'graffiti.png',h:'<p>oh no!! it appears someone has GRAFFITIED this room!!<br>who would DO this?? (it was probably steven.)</p><p class="dim sm">(it says something. you cannot read it. it is VERY saucy.)</p>',e:['kill','garage','hall']},
+tmas:{t:'TELL ME A STORY',l:'tell me a story',i:'book',k:'#b84dff',imgs:['tmas.png','tmas2.png','tmas3.png','tmas4.png'],row:1,h:'<p>key. and peele.<br>they are here. they are always here. they are on standby.</p><p>they will not tell you a joke. they will tell you a story. a bedtime one. with a beginning and a middle and a sleepy little end.</p><p class="dim sm">(say it with your whole chest: KEY AND PEELE. TELL ME A STORY.)</p>',e:['tube','kill','hall','void']},
+bob:{t:'frutiger pee spink bap',l:'pee spink bap',i:'drip',k:'#fff700',img:'BOB.png',h:'<p>frutiger aero spongebob. glossy. translucent. rendered inside a bubbly 2007 menu bar.<br>he is made of PEE. (urine.) golden. #pissmogged</p><p class="dim sm">(the water here is very aqua. the aqua is not water.)</p>',e:['aquarium','boats','void']},
 rand:{t:'???',l:'???',i:'noise',h:'',e:[]}
 };
 var HID=['nana2','tmnt','shrine'];
-var V=document.getElementById('view'),O=document.getElementById('out'),cur='home',hist=[],ac,mus=null,n=0,pops=[],ot;
+var V=document.getElementById('view'),O=document.getElementById('out'),cur='home',hist=[],ac,mus=null,n=0,pops=[],ot,hopT;
 function msg(t){O.textContent=t;clearTimeout(ot);ot=setTimeout(function(){O.textContent=''},30000)}
 var GB='財發錢富金貴豬霸暴吃肥買賣運福祿壽喜炸轟愛你我他好天地人大小中國家門水火山風';
 function ch(k){var s='';while(k--)s+=GB[Math.floor(Math.random()*GB.length)];return s}
@@ -159,7 +170,7 @@ function gib(){var k=2+Math.floor(Math.random()*2),o='';while(k--)o+=ch(4+Math.f
 function pk(){return Math.random()<.5?'':''}
 function mon(){return'<p class="mon"><span>'+pk()+'</span><span class="gb">'+gib()+'</span></p>'}
 var BY=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]],COL=['#00ffd0','#ff0062','#ff4500','#fff700','#b84dff','#39ff14','#ff9ad5','#00a2ff'];
-var TY=['house','hog','eye','skull','wave','door','fridge','noise','void','stairs','drip','cube','tv','boat','horns','boombox','wizard','pants','crown','turtle','hedgehog','corridor','leaf','leaf2','qmark','info','speech','scroll','frame','signpost','mail','doors','pot','bottle','hole','attic','toilet','mirror','hanger','twitch','bird','list','trophy','lantern','mic','crosshair','cat','star4','star5','bolt','washer','car','antenna','book','fish','vend','copper'];
+var TY=['house','hog','eye','skull','wave','door','fridge','noise','void','stairs','drip','cube','tv','boat','horns','boombox','wizard','pants','crown','turtle','hedgehog','corridor','leaf','leaf2','qmark','info','speech','scroll','frame','signpost','mail','doors','pot','bottle','hole','attic','toilet','mirror','hanger','twitch','bird','list','trophy','lantern','mic','crosshair','cat','star4','star5','bolt','washer','car','antenna','book','fish','vend','copper','bunny','spray'];
 function D(x,y,a,b){return Math.hypot(x-a,y-b)}
 function tr(px,py,ax,ay,bx,by,cx,cy){var d1=(px-bx)*(ay-by)-(ax-bx)*(py-by),d2=(px-cx)*(by-cy)-(bx-cx)*(py-cy),d3=(px-ax)*(cy-ay)-(cx-ax)*(py-ay);return !((d1<0||d2<0||d3<0)&&(d1>0||d2>0||d3>0))}
 function F(t,x,y){var dx=x-.5,dy=y-.5,r=Math.hypot(dx,dy);
@@ -220,6 +231,8 @@ case'book':if(y>.25&&y<.8&&Math.abs(dx)<.38){if(Math.abs(dx)<.02)return .1;retur
 case'fish':var fe=Math.hypot(dx*1.2+.05,(y-.5)*1.7);if(fe<.28)return D(x,y,.35,.46)<.03?0:.8;if(dx>.22&&dx<.4&&Math.abs(y-.5)<(dx-.18)*1.1)return .8;return y>.85?.3+.2*Math.sin(x*30):.1;
 case'vend':if(x>.2&&x<.8&&y>.1&&y<.92){if(x>.28&&x<.58&&y>.18&&y<.7)return((Math.floor((x-.28)*30)+Math.floor((y-.18)*30))%2)?.9:.5;if(x>.64&&x<.74&&y>.2&&y<.3)return 1;if(x>.28&&x<.72&&y>.78&&y<.86)return .1;return .6}return .1;
 case'copper':if(x>.15&&x<.85&&y>.15&&y<.85){var cb=Math.min(Math.abs(x-.15),Math.abs(x-.85),Math.abs(y-.15),Math.abs(y-.85));if(cb<.05)return .95;if(cb<.12)return .6;return .75+.2*Math.sin(Math.floor(x*10)*7+Math.floor(y*10)*3)}return .1;
+case'bunny':if(Math.hypot((x-.38)/.06,(y-.25)/.19)<1||Math.hypot((x-.62)/.06,(y-.25)/.19)<1)return .9;if(D(x,y,.42,.6)<.03||D(x,y,.58,.6)<.03||D(x,y,.5,.64)<.03)return 0;if(y>.72&&y<.82&&Math.abs(Math.abs(dx)-.06)<.02)return 1;if(D(x,y,.5,.62)<.24)return .75;return .1;
+case'spray':if(Math.abs(dx)<.15&&y>.4&&y<.92)return .8;if(Math.abs(dx)<.1&&y>.25&&y<=.4)return .95;if(x>.6&&D(x,y,.6,.28)<.38&&Math.sin(x*70)*Math.sin(y*70)>.4)return .9;return .1;
 case'tv':return(x>.15&&x<.85&&y>.2&&y<.8)?.4+.3*Math.sin(y*90)+.2*Math.sin(x*20+y*5):.1}
 return .5}
 function draw(c,t,col){c.width=c.height=64;var g=c.getContext('2d'),im=g.createImageData(64,64),k=parseInt(col.slice(1),16),R=k>>16&255,G=k>>8&255,B=k&255;
@@ -227,13 +240,18 @@ for(var y=0;y<64;y++)for(var x=0;x<64;x++){var on=F(t,x/64,y/64)>BY[y&3][x&3]/16
 g.putImageData(im,0,0)}
 function hc(s){var h=0;for(var i=0;i<s.length;i++)h+=s.charCodeAt(i);return h%COL.length}
 function tile(id){var p=P[id];return'<div class="tile" role="button" tabindex="0" data-g="'+id+'"><canvas data-i="'+p.i+'" data-c="'+(p.k||COL[hc(id)])+'"></canvas><div class="lb">'+p.l+'</div></div>'}
+function startHop(){var b=document.getElementById('hopbox');if(!b)return;var bs=[];
+for(var i=0;i<3;i++){var d=document.createElement('img');d.src=PD+'bunny.png';d.className='bun';d.alt='bunny';d.style.left=(Math.random()*85)+'%';b.appendChild(d);bs.push(d)}
+hopT=setInterval(function(){bs.forEach(function(d){if(Math.random()<.6){var cx=parseFloat(d.style.left),nx=Math.random()*88;d.style.scale=nx<cx?'-1 1':'1 1';d.style.left=nx+'%';d.classList.add('hp');setTimeout(function(){d.classList.remove('hp')},720)}})},900)}
 function render(id){cur=id;setTrack(id);var p=P[id],es=p.e;
 if(id==='between'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&HID.indexOf(q)<0&&q!=='between'&&q!==hist[hist.length-1]});es=[];while(es.length<3)es.push(k.splice(Math.floor(Math.random()*k.length),1)[0]);es.push('void')}
 else es=es.filter(function(q){return q!=='between'||Math.random()<.5});
 var im=p.imgs||(p.img?[p.img]:[]);
 var pics=im.map(function(f,i){return'<img class="pic" src="'+PD+f+'" alt="'+p.l+'"'+(i===0&&p.click?' data-open="'+p.click.url+'" data-blank="'+(p.click.blank?1:0)+'" title="click me"':'')+' onerror="this.outerHTML=\'<p class=dim>[missing: '+PD+f+']</p>\'">'}).join('');
+if(p.row)pics='<div class="row">'+pics+'</div>';
 var h='<h2>'+p.t+'</h2>'+mon()+pics+p.h.replace(/@(house|gun)/g,function(m,k){return document.getElementById('t-'+k).innerHTML});
 h+=mon()+'<div class="tiles">'+es.map(tile).join('')+'</div>';V.innerHTML=h;
+clearInterval(hopT);if(id==='kill')startHop();
 V.querySelectorAll('canvas[data-i]').forEach(function(c){draw(c,c.dataset.i,c.dataset.c)});window.scrollTo(0,0)}
 function go(id,noh){if(id==='rand'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&HID.indexOf(q)<0&&q!==cur});id=k[Math.floor(Math.random()*k.length)];msg('you were teleported by saucy steven.')}
 else if(id==='slopbeach')msg('the boat took you across the ocean. it took a while. nobody was steering.');
@@ -284,11 +302,17 @@ static:{n:'antenna static',bpm:80,lw:'sine',bw:'sine',L:[84,0,0,81,0,0,79,0,0,76
 shh:{n:'shhh',bpm:90,lw:'triangle',bw:'sine',L:[69,0,72,0,76,0,75,0,69,0,72,0,77,0,76,0,68,0,71,0,75,0,74,0,68,0,0,0,0,0,0,0],B:[33,0,0,0,40,0,0,0],p:'........'},
 tank:{n:'one large tank',bpm:100,lw:'sine',bw:'sine',L:[72,0,76,0,79,0,84,0,0,0,79,0,76,0,72,0,74,0,77,0,81,0,86,0,0,0,81,0,77,0,74,0],B:[36,0,0,0,0,0,0,0,43,0,0,0,0,0,0,0],p:'w.......'},
 b4:{n:'b4 (insert coin)',bpm:120,lw:'square',bw:'triangle',L:[84,0,84,0,88,0,84,0,0,0,79,0,0,0,0,0,81,0,81,0,84,0,81,0,0,0,76,0,0,0,0,0],B:[41,0,48,0,41,0,48,0],p:'h.h.h.hs'},
-holy:{n:'waxed (holy)',bpm:72,lw:'triangle',bw:'sine',L:[62,0,0,66,0,0,69,0,0,74,0,0,73,0,0,0,64,0,0,67,0,0,71,0,0,76,0,0,74,0,0,0],B:[38,0,0,0,0,0,0,0,43,0,0,0,0,0,0,0],p:'........'}
+holy:{n:'waxed (holy)',bpm:72,lw:'triangle',bw:'sine',L:[62,0,0,66,0,0,69,0,0,74,0,0,73,0,0,0,64,0,0,67,0,0,71,0,0,76,0,0,74,0,0,0],B:[38,0,0,0,0,0,0,0,43,0,0,0,0,0,0,0],p:'........'},
+luna:{n:'luna.exe (??)',bpm:170,rnd:4,L:[0],B:[0],p:'.'},
+beasts:{n:'FINGERS (crunch)',bpm:210,lw:'sawtooth',bw:'sawtooth',L:[40,40,41,40,40,43,40,40,46,45,40,40,41,40,47,-1,40,40,41,40,40,43,40,40,46,45,40,-1,47,46,45,0],B:[28,28,28,28,28,28,31,28,28,28,28,28,29,28,34,33],p:'xsxxsxsx'},
+graf:{n:'tag you\'re it',bpm:95,lw:'square',bw:'triangle',L:[57,0,0,60,0,57,0,0,62,0,60,0,57,0,0,0],B:[33,0,0,33,0,36,0,0],p:'xhsh.xsh'},
+tmas:{n:'sleepy time (key and peele)',bpm:84,lw:'sine',bw:'triangle',L:[72,0,76,0,79,0,76,0,74,0,77,0,81,0,77,0,72,0,76,0,79,0,84,0,83,0,0,0,0,0,0,0],B:[36,0,0,0,43,0,0,0],p:'........'},
+bob:{n:'aero bubble (trickle)',bpm:118,lw:'sine',bw:'triangle',L:[76,0,79,83,0,81,0,79,76,0,74,0,72,76,-1,0,77,0,81,84,0,83,0,81,77,0,76,-1,-1,0,0,0],B:[36,0,43,0,41,0,48,0],p:'h.h.x.hs'}
 };
 var MP={home:'home',what:'what',hog:'hog',channel:'arcade',hypercub:'arcade',doctrine:'infomercial',art:'box',faq:'faq',elsewhere:'phone',knock:'phone',question:'question',hall:'hall',kitchen:'kitchen',fridge:'fridge',steven:'steven',basement:'dark',pit:'dark',attic:'box',bathroom:'box',mirror:'box',void:'void',wads:'wads',closet:'closet',tube:'tube',twitch:'twitch',bird:'bird',list:'list',ad:'ad',newyear:'newyear',discord:'discord',origin:'origin',
 office:'seb',jolyne:'jol',dvhole:'joey',mansion:'nix',boats:'dock',slopbeach:'ari',jroom:'speed',tmnt:'tmnt',bedhog:'bedhog',between:'between',nana:'nana',nana2:'nana2',
-shrine:'anthem',laundry:'spin',garage:'blues',roof:'static',library:'shh',aquarium:'tank',vending:'b4',copper:'holy'};
+shrine:'anthem',laundry:'spin',garage:'blues',roof:'static',library:'shh',aquarium:'tank',vending:'b4',copper:'holy',
+kill:'luna',beasts:'beasts',graffiti:'graf',tmas:'tmas',bob:'bob'};
 var trk='home',stepI=0;
 function mf(m){return 440*Math.pow(2,(m-69)/12)}
 function nz(t,d,v){var b=ac.createBuffer(1,ac.sampleRate*d|0,ac.sampleRate),a=b.getChannelData(0),i;for(i=0;i<a.length;i++)a[i]=Math.random()*2-1;var s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(g);g.connect(ac.destination);s.start(t)}
@@ -300,6 +324,7 @@ if(s%4===0)tone([55,55,65.4,49][(s>>2)%4]*.5,t,.5,'square',.1);
 if(s%6===0)sw(t,200,45,.45,'sawtooth',.07);
 if(s%3===1)nz(t,.2,.04);return}
 if(T.rnd===3){if(Math.random()<.55)sw(t,120+Math.random()*300,350+Math.random()*900,.1+Math.random()*.1,'sine',.09);if(s%3===0)sw(t,500+Math.random()*400,50+Math.random()*60,.35,'sawtooth',.045);if(Math.random()<.3)nz(t,.12+Math.random()*.2,.06);if(s%8===0){var bn=mf([40,46,41,47][(s>>3)%4]);sw(t,bn,bn*.6,.7,'triangle',.12)}if(Math.random()<.25)tone(mf(60+Math.floor(Math.random()*24)),t,.09,'square',.03);if(s%4===2)sw(t,90,40,.2,'sine',.2);return}
+if(T.rnd===4){if(Math.random()<.6)sw(t,80+Math.random()*1200,80+Math.random()*1200,.05+Math.random()*.4,['sine','square','triangle','sawtooth'][Math.floor(Math.random()*4)],.06);if(s%7===0)tone(mf(30+Math.random()*12),t,.9,'sine',.1);if(s%5===3)nz(t,.02,.1);if(s%11===0){for(var q=0;q<4;q++)tone(mf(72+q*1.37*(s%3+1)),t+q*.03,.1,'square',.03)}if(Math.random()<.15)sw(t,2000,90,.15,'sawtooth',.05);return}
 if(T.rnd){if(Math.random()<.85)tone([220,261.6,293.7,329.6,392,440,523.3,587.3][Math.floor(Math.random()*8)]*(s%32<16?1:.5),t,.16,'square',.05);if(s%4===0)tone([55,55,65.4,49][(s>>2)%4],t,.4,'sawtooth',.09);if(s%2===1)tone(1800+Math.random()*600,t,.03,'square',.015);return}var m=T.L[s%T.L.length],bm=T.B[s%T.B.length],pc=T.p[s%T.p.length];
 if(m>0)tone(mf(m),t,Math.min(T.sus||.3,60/T.bpm*.8),T.lw,.05);else if(m<0)sw(t,320,110,.22,'sawtooth',.08);
 if(bm>0)tone(mf(bm),t,T.bpm<70?1.5:60/T.bpm,T.bw,.09);
