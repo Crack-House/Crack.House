@@ -264,7 +264,7 @@ if(hsN>=hsT){doorOn=true;try{localStorage.setItem('ch_door','1')}catch(e){}
 tone(mf(48),t+.1,1.4,'sawtooth',.1);tone(mf(55),t+.1,1.4,'sawtooth',.1);tone(mf(60),t+.1,1.4,'sawtooth',.1);sw(t+.1,70,30,1.4,'sine',.3);
 msg('A NEW DOOR HAS APPEARED IN THE BROADCAST ROOM.')}}}
 function jump(){var t=ac.currentTime;nz(t,1,.45);sw(t,900,2600,.7,'sawtooth',.22);sw(t,950,2500,.7,'sawtooth',.22);sw(t,70,28,1.2,'sawtooth',.3);tone(mf(86),t,.9,'square',.12);tone(mf(92),t,.9,'square',.12);
-var o=document.createElement('div');o.id='js';o.innerHTML='<span>IT IS ANGRY</span><img src="'+PD+'EVIL.png" alt="" onerror="this.remove()">';document.body.appendChild(o);setTimeout(function(){o.remove()},1500)}
+var o=document.createElement('div');o.id='js';o.innerHTML='<span>YOU DONE FUCKED UP!!!</span><img src="'+PD+'EVIL.png" alt="" onerror="this.remove()">';document.body.appendChild(o);setTimeout(function(){o.remove()},1500)}
 function bindEnt(){var im=V.querySelector('.pic');if(!im)return;var c=0;im.style.cursor='default';
 im.onclick=function(){if(entAngry)return;ens();if(!ac)return;c++;var t=ac.currentTime;sw(t,150+c*70,45,.3,'sawtooth',.12);nb(t,.5,.08,500+c*300,3);
 if(c>=5){entAngry=true;im.src=PD+'EVIL.png';im.classList.add('ang');setTrack('entity');jump()}}}
