@@ -53,6 +53,15 @@ li::before{content:"> ";animation:cyc 4s ease-in-out infinite}
 .tile:hover canvas{border-color:#00ffd0}
 .pop{position:fixed;z-index:9;background:var(--bg);border:2px solid #ff0062;padding:4px;width:104px;font-size:11px;cursor:pointer;box-shadow:4px 4px 0 #00ffd0}
 .pop canvas{display:block;width:96px;height:96px;image-rendering:pixelated}
+
+.hs{position:fixed;right:16px;bottom:16px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.04);z-index:2}
+.hs:hover{background:#00ffd0;box-shadow:0 0 14px #00ffd0}
+.pic.ang{border-color:#f00;box-shadow:6px 6px 0 #f00;animation:shk .1s infinite}
+@keyframes shk{0%{translate:-3px 2px}50%{translate:3px -2px}100%{translate:-2px -3px}}
+#js{position:fixed;inset:0;z-index:99;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;animation:jsb .09s steps(2) infinite}
+#js span{position:absolute;color:#f00;font-size:12vw;font-weight:bold;text-align:center}
+#js img{position:relative;max-width:100%;max-height:100%;transform:scale(1.25)}
+@keyframes jsb{0%{background:#000;transform:translate(-10px,8px)}50%{background:#800;transform:translate(10px,-8px)}100%{background:#000;transform:translate(-8px,-10px)}}
 </style>
 </head>
 <body>
@@ -134,7 +143,7 @@ ad:{t:'earn the cock',l:'cocksure',i:'trophy',h:'<p>KAAKBUY MO SAY!<br>BUHOOY! S
 newyear:{t:'HEY HEY HEY HEY!',l:'china',i:'lantern',h:'<p>chinese new year propaganda hype song.<br>play it loud. the hog insists.</p><p><a href="https://www.youtube.com/watch?v=tYa7RZpph10" target="_blank" rel="noopener noreferrer">the hype song</a></p>',e:['bird','hall','doctrine']},
 discord:{t:'jumbo josh on the mic brah',l:'jumbo josh sings discord',i:'mic',h:'<p>jumbo josh on the mic brah.<br>sit on my lap brah. listen to me sing.</p><p><a href="https://www.youtube.com/watch?v=_k_fBK4aaLk&amp;list=RD_k_fBK4aaLk&amp;start_radio=1&amp;sttick=0" target="_blank" rel="noopener noreferrer">jumbo josh sings discord</a></p>',e:['twitch','pit','mirror']},
 origin:{t:'the original house',l:'the original',i:'crosshair',h:'<p>before this house there was another house. there were many frags to be had there.<br>this are a parody and also a tribute. CLICK FOR PENIS ADVICE!!!!!!</p><p><a href="https://frag.house" target="_blank" rel="noopener noreferrer">frag.house</a></p>',e:['home','void','what']},
-office:{t:'Hornswaggler\'s Office',l:'hornswaggler',i:'star4',k:'#ff1493',img:'sebastion.png',click:{url:'terminal.html',secret:1},h:'<p>the mighty hornswaggler is in.<br>the mighty hornswaggler is always in.<br>please do not touch the him it. it\'s desk is smoothy. smoothie like drinks!! (#doesitlikesmoothies?)</p><p class="dim sm"> (there is a computer on its desk with an open command prompt) </p>',e:['basement','pit']},
+office:{t:'Hornswaggler\'s Office',l:'hornswaggler',i:'star4',k:'#ff1493',img:'sebastion.png',click:{url:'terminal.html',secret:1},h:'<p>the mighty hornswaggler is in.<br>the mighty hornswaggler is always in.<br>please do not touch the him it. it\'s desk is smoothy. smoothie like drinks!! (#doesitlikesmoothies?)</p><p class="dim sm"> (there is a computer on its desk with an open command prompt) </p><span class="hs" id="hs"></span>',e:['basement','pit']},
 jolyne:{t:'jolyne',l:'jolyne',i:'boombox',k:'#00ffd0',img:'jolyne.png',h:'<p>the kicklemiester has entered the kitchen. yo gabba gabba.<br>she is a parrot eater. (allegedly.) (sigma.)</p>',e:['kitchen','steven','hall']},
 dvhole:{t:'disablevizard hole',l:'disablevizard hole',i:'wizard',k:'#b84dff',img:'joey.jpg',click:{url:'joey_comms.png',blank:1},h:'<p>you fell in the pit. joey lives down here. in the pit.<br>capabilities: peeing &amp; pooping #buttsauce<br>the muzak is VERY smooth.<br><span class="dim sm">(if you want to pay joey for a commision. click his picture. its got his info on it.. do it... if you #DARE.)</span></p>',e:['pit','ad','void']},
 mansion:{t:'psychopants psycho-mansion',l:'abnormally large stall',i:'pants',k:'#00a2ff',img:'nix.jpg',h:'<p>psychopantis...........<br>the realest guy you will EVER friendslop.<br><span class="dim sm">(he lives in the bathroom. there is a mansion in the bathroom. do not ask.)</span></p>',e:['bathroom','mirror']},
@@ -160,10 +169,12 @@ graffiti:{t:'graffiti room',l:'graffiti',i:'spray',k:'#ff9ad5',img:'graffiti.png
 tmas:{t:'TELL ME A STORY',l:'tell me a story',i:'book',k:'#b84dff',imgs:['tmas.png','tmas2.png','tmas3.png','tmas4.png'],row:1,h:'<p>key. and peele.<br>they are here. their clones are here too. (something went wrong during the process... something about low mcchicken levels) they have always been here. they are on standby.</p><p> KEY AND PEEL! TELL ME A STORY! with a beginning and a middle and a sleepy little end.</p><p class="dim sm">(say it with your whole chest: KEY AND PEELE. TELL ME A STORY.)</p>',e:['tube','kill','hall','void']},
 bob:{t:'frutiger pee spink bap',l:'spink bap',i:'drip',k:'#fff700',img:'BOB.png',h:'<p> spink bap 🤣 <br>he is made of PEE. (urine.) #pissmogged</p><p class="dim sm">(the water here is very yellow. it may not be water.)</p>',e:['aquarium','boats','void']},
 vault:{t:'the hornswaggler\'s vault',l:'the vault',i:'trophy',k:'#fff700',h:'<p>the golden smoothie hums in your pocket. the door was never locked. it was waiting for you.<br>inside: one (1) enormous gold-plated hog, a fountain of smoothie that never ends, and a wall of names of everyone who ever liked smoothies.<br><span class="dim sm">(yours is at the bottom. it is spelled wrong. that is ok.)</span></p>',e:['office','basement','hog']},
+entity:{t:'entity',l:'new door',i:'door',k:'#ff0000',img:'PISSBABY.png',h:'',e:['tube']},
 rand:{t:'???',l:'???',i:'noise',h:'',e:[]}
 };
-var HID=['nana2','tmnt','shrine'];
-var V=document.getElementById('view'),O=document.getElementById('out'),cur='home',hist=[],ac,mus=null,n=0,pops=[],ot,hopT;
+var HID=['nana2','tmnt','shrine','entity'];
+var V=document.getElementById('view'),O=document.getElementById('out'),cur='home',hist=[],ac,mus=null,n=0,pops=[],ot,hopT,hsN=0,hsT=13+Math.floor(Math.random()*14),doorOn=false,entAngry=false;
+try{doorOn=localStorage.getItem('ch_door')==='1'}catch(e){}
 function msg(t){O.textContent=t;clearTimeout(ot);ot=setTimeout(function(){O.textContent=''},30000)}
 var GB='財發錢富金貴豬霸暴吃肥買賣運福祿壽喜炸轟愛你我他好天地人大小中國家門水火山風';
 function ch(k){var s='';while(k--)s+=GB[Math.floor(Math.random()*GB.length)];return s}
@@ -244,16 +255,31 @@ function tile(id){var p=P[id];return'<div class="tile" role="button" tabindex="0
 function startHop(){var b=document.getElementById('hopbox');if(!b)return;var bs=[];
 for(var i=0;i<3;i++){var d=document.createElement('img');d.src=PD+'bunny.png';d.className='bun';d.alt='bunny';d.style.left=(Math.random()*76)+'%';b.appendChild(d);bs.push(d)}
 hopT=setInterval(function(){bs.forEach(function(d){if(Math.random()<.6){var cx=parseFloat(d.style.left),nx=Math.random()*76;d.style.scale=nx<cx?'-1 1':'1 1';d.style.left=nx+'%';d.classList.add('hp');setTimeout(function(){d.classList.remove('hp')},720)}})},900)}
+function ens(){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(e){}}
+function nb(t,d,v,f,q){var b=ac.createBuffer(1,ac.sampleRate*d|0,ac.sampleRate),a=b.getChannelData(0),i,s=ac.createBufferSource(),fl=ac.createBiquadFilter(),g=ac.createGain();for(i=0;i<a.length;i++)a[i]=Math.random()*2-1;s.buffer=b;fl.type='bandpass';fl.frequency.value=f;fl.Q.value=q||1;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+d*.5);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl);fl.connect(g);g.connect(ac.destination);s.start(t)}
+function bindHS(){var h=document.getElementById('hs');if(!h)return;h.onclick=function(){ens();if(!ac)return;var t=ac.currentTime;
+if(doorOn){tone(110,t,.2,'square',.05);return}
+hsN++;tone(180+hsN*28,t,.12,'square',.08);nz(t,.05,.05);
+if(hsN>=hsT){doorOn=true;try{localStorage.setItem('ch_door','1')}catch(e){}
+tone(mf(48),t+.1,1.4,'sawtooth',.1);tone(mf(55),t+.1,1.4,'sawtooth',.1);tone(mf(60),t+.1,1.4,'sawtooth',.1);sw(t+.1,70,30,1.4,'sine',.3);
+msg('A NEW DOOR HAS APPEARED IN THE BROADCAST ROOM.')}}}
+function jump(){var t=ac.currentTime;nz(t,1,.45);sw(t,900,2600,.7,'sawtooth',.22);sw(t,950,2500,.7,'sawtooth',.22);sw(t,70,28,1.2,'sawtooth',.3);tone(mf(86),t,.9,'square',.12);tone(mf(92),t,.9,'square',.12);
+var o=document.createElement('div');o.id='js';o.innerHTML='<span>IT IS ANGRY</span><img src="'+PD+'EVIL.png" alt="" onerror="this.remove()">';document.body.appendChild(o);setTimeout(function(){o.remove()},1500)}
+function bindEnt(){var im=V.querySelector('.pic');if(!im)return;var c=0;im.style.cursor='default';
+im.onclick=function(){if(entAngry)return;ens();if(!ac)return;c++;var t=ac.currentTime;sw(t,150+c*70,45,.3,'sawtooth',.12);nb(t,.5,.08,500+c*300,3);
+if(c>=5){entAngry=true;im.src=PD+'EVIL.png';im.classList.add('ang');setTrack('entity');jump()}}}
 function render(id){cur=id;setTrack(id);var p=P[id],es=p.e;
 if(id==='between'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&HID.indexOf(q)<0&&q!=='between'&&q!==hist[hist.length-1]});es=[];while(es.length<3)es.push(k.splice(Math.floor(Math.random()*k.length),1)[0]);es.push('void')}
 else es=es.filter(function(q){return q!=='between'||Math.random()<.5});
 if(id==='office'){try{if(localStorage.getItem('ch_prize')==='1')es=es.concat('vault')}catch(e){}}
-var im=p.imgs||(p.img?[p.img]:[]);
+if(id==='tube'&&doorOn)es=es.concat('entity');
+var im=p.imgs||(p.img?[p.img]:[]);if(id==='entity'&&entAngry)im=['EVIL.png'];
 var pics=im.map(function(f,i){return'<img class="pic" src="'+PD+f+'" alt="'+p.l+'"'+(i===0&&p.click?' data-open="'+p.click.url+'" data-blank="'+(p.click.blank?1:0)+'"'+(p.click.secret?' data-s="1"':' title="click me"'):'')+' onerror="this.outerHTML=\'<p class=dim>[missing: '+PD+f+']</p>\'">'}).join('');
 if(p.row)pics='<div class="row">'+pics+'</div>';
-var h='<h2>'+p.t+'</h2>'+mon()+pics+p.h.replace(/@(house|gun)/g,function(m,k){return document.getElementById('t-'+k).innerHTML});
-h+=mon()+'<div class="tiles">'+es.map(tile).join('')+'</div>';V.innerHTML=h;
+var h='<h2>'+p.t+'</h2>'+(id==='entity'?'':mon())+pics+p.h.replace(/@(house|gun)/g,function(m,k){return document.getElementById('t-'+k).innerHTML});
+h+=(id==='entity'?'':mon())+'<div class="tiles">'+es.map(tile).join('')+'</div>';V.innerHTML=h;
 clearInterval(hopT);if(id==='kill')startHop();
+if(id==='office')bindHS();if(id==='entity'){if(entAngry){var ep=V.querySelector('.pic');if(ep)ep.classList.add('ang')}else bindEnt()}
 V.querySelectorAll('canvas[data-i]').forEach(function(c){draw(c,c.dataset.i,c.dataset.c)});window.scrollTo(0,0)}
 function go(id,noh){if(id==='rand'){var k=Object.keys(P).filter(function(q){return q!=='rand'&&HID.indexOf(q)<0&&q!==cur});id=k[Math.floor(Math.random()*k.length)];msg('you were teleported by saucy steven.')}
 else if(id==='slopbeach')msg('the boat took you across the ocean. it took a while. nobody was steering.');
@@ -310,12 +336,14 @@ beasts:{n:'FINGERS (crunch)',bpm:210,lw:'sawtooth',bw:'sawtooth',L:[40,40,41,40,
 graf:{n:'tag you\'re it',bpm:95,lw:'square',bw:'triangle',L:[57,0,0,60,0,57,0,0,62,0,60,0,57,0,0,0],B:[33,0,0,33,0,36,0,0],p:'xhsh.xsh'},
 tmas:{n:'sleepy time (key and peele)',bpm:84,lw:'sine',bw:'triangle',L:[72,0,76,0,79,0,76,0,74,0,77,0,81,0,77,0,72,0,76,0,79,0,84,0,83,0,0,0,0,0,0,0],B:[36,0,0,0,43,0,0,0],p:'........'},
 bob:{n:'aero bubble (trickle)',bpm:118,lw:'sine',bw:'triangle',L:[76,0,79,83,0,81,0,79,76,0,74,0,72,76,-1,0,77,0,81,84,0,83,0,81,77,0,76,-1,-1,0,0,0],B:[36,0,43,0,41,0,48,0],p:'h.h.x.hs'},
-vault:{n:'the golden smoothie (fanfare)',bpm:104,lw:'square',bw:'triangle',L:[72,0,76,0,79,0,84,0,83,0,79,0,76,0,79,0,77,0,81,0,84,0,89,0,88,0,84,0,81,0,84,0,79,0,83,0,86,0,91,0,90,0,86,0,83,0,86,0,84,0,0,0,79,0,0,0,76,0,0,0,0,0,0,0],B:[48,0,48,0,55,0,55,0,53,0,53,0,60,0,60,0,55,0,55,0,62,0,62,0,48,0,0,0,0,0,0,0],p:'x.hsx.hs'}
+vault:{n:'the golden smoothie (fanfare)',bpm:104,lw:'square',bw:'triangle',L:[72,0,76,0,79,0,84,0,83,0,79,0,76,0,79,0,77,0,81,0,84,0,89,0,88,0,84,0,81,0,84,0,79,0,83,0,86,0,91,0,90,0,86,0,83,0,86,0,84,0,0,0,79,0,0,0,76,0,0,0,0,0,0,0],B:[48,0,48,0,55,0,55,0,53,0,53,0,60,0,60,0,55,0,55,0,62,0,62,0,48,0,0,0,0,0,0,0],p:'x.hsx.hs'},
+entity:{n:'it is listening',bpm:120,rnd:5,L:[0],B:[0],p:'.'},
+angry:{n:'IT IS ANGRY',bpm:290,rnd:6,L:[0],B:[0],p:'.'}
 };
 var MP={home:'home',what:'what',hog:'hog',channel:'arcade',hypercub:'arcade',doctrine:'infomercial',art:'box',faq:'faq',elsewhere:'phone',knock:'phone',question:'question',hall:'hall',kitchen:'kitchen',fridge:'fridge',steven:'steven',basement:'dark',pit:'dark',attic:'box',bathroom:'box',mirror:'box',void:'void',wads:'wads',closet:'closet',tube:'tube',twitch:'twitch',bird:'bird',list:'list',ad:'ad',newyear:'newyear',discord:'discord',origin:'origin',
 office:'seb',jolyne:'jol',dvhole:'joey',mansion:'nix',boats:'dock',slopbeach:'ari',jroom:'speed',tmnt:'tmnt',bedhog:'bedhog',between:'between',nana:'nana',nana2:'nana2',
 shrine:'anthem',laundry:'spin',garage:'blues',roof:'static',library:'shh',aquarium:'tank',vending:'b4',copper:'holy',
-kill:'luna',beasts:'beasts',graffiti:'graf',tmas:'tmas',bob:'bob',vault:'vault'};
+kill:'luna',beasts:'beasts',graffiti:'graf',tmas:'tmas',bob:'bob',vault:'vault',entity:'entity'};
 var trk='home',stepI=0;
 function mf(m){return 440*Math.pow(2,(m-69)/12)}
 function nz(t,d,v){var b=ac.createBuffer(1,ac.sampleRate*d|0,ac.sampleRate),a=b.getChannelData(0),i;for(i=0;i<a.length;i++)a[i]=Math.random()*2-1;var s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(g);g.connect(ac.destination);s.start(t)}
@@ -328,12 +356,31 @@ if(s%6===0)sw(t,200,45,.45,'sawtooth',.07);
 if(s%3===1)nz(t,.2,.04);return}
 if(T.rnd===3){if(Math.random()<.55)sw(t,120+Math.random()*300,350+Math.random()*900,.1+Math.random()*.1,'sine',.09);if(s%3===0)sw(t,500+Math.random()*400,50+Math.random()*60,.35,'sawtooth',.045);if(Math.random()<.3)nz(t,.12+Math.random()*.2,.06);if(s%8===0){var bn=mf([40,46,41,47][(s>>3)%4]);sw(t,bn,bn*.6,.7,'triangle',.12)}if(Math.random()<.25)tone(mf(60+Math.floor(Math.random()*24)),t,.09,'square',.03);if(s%4===2)sw(t,90,40,.2,'sine',.2);return}
 if(T.rnd===4){if(Math.random()<.6)sw(t,80+Math.random()*1200,80+Math.random()*1200,.05+Math.random()*.4,['sine','square','triangle','sawtooth'][Math.floor(Math.random()*4)],.06);if(s%7===0)tone(mf(30+Math.random()*12),t,.9,'sine',.1);if(s%5===3)nz(t,.02,.1);if(s%11===0){for(var q=0;q<4;q++)tone(mf(72+q*1.37*(s%3+1)),t+q*.03,.1,'square',.03)}if(Math.random()<.15)sw(t,2000,90,.15,'sawtooth',.05);return}
+if(T.rnd===5){
+if(s%16===0){tone(41.2,t,4.4,'sine',.16);tone(43.4,t,4.4,'sine',.14);tone(58.3,t,4.4,'triangle',.06)}
+if(s%8===0&&Math.random()<.9){sw(t,95,34,.2,'sine',.32);sw(t+.3,85,32,.22,'sine',.22)}
+if(s%16===8)nb(t,3.2,.07,500,2);
+if(Math.random()<.1){var hf=2400+Math.random()*1800;sw(t,hf,hf*1.01,1.8,'sine',.012);sw(t,hf*1.06,hf*1.07,1.8,'sine',.012)}
+if(Math.random()<.07)nb(t,1.6+Math.random(),.05,1800+Math.random()*2000,6);
+if(Math.random()<.06)tone(mf(72+[0,1,6,7,11,13][Math.floor(Math.random()*6)]),t,2.2,'sine',.035);
+if(Math.random()<.04)sw(t,1300+Math.random()*700,70,2.4,'sawtooth',.02);
+if(Math.random()<.015)sw(t,70,28,1.8,'sawtooth',.07);
+return}
+if(T.rnd===6){
+sw(t,220,35,.1,'sine',.38);
+if(s%2===1){nz(t,.14,.22);sw(t,400,120,.1,'square',.12)}
+if(Math.random()<.85){var f=150+Math.random()*2600;sw(t,f,f*(.5+Math.random()),.09,'sawtooth',.09);if(Math.random()<.5)sw(t,f*1.414,f*.7,.09,'sawtooth',.07)}
+tone(mf(28+[0,1,6,0,13,12][Math.floor(Math.random()*6)]),t,.2,'sawtooth',.14);
+if(s%8===0)sw(t,300,2600,.8,'sawtooth',.07);
+if(Math.random()<.5)tone(mf(60+Math.floor(Math.random()*24)),t,.05,'square',.05);
+nz(t,.04,.1);
+return}
 if(T.rnd){if(Math.random()<.85)tone([220,261.6,293.7,329.6,392,440,523.3,587.3][Math.floor(Math.random()*8)]*(s%32<16?1:.5),t,.16,'square',.05);if(s%4===0)tone([55,55,65.4,49][(s>>2)%4],t,.4,'sawtooth',.09);if(s%2===1)tone(1800+Math.random()*600,t,.03,'square',.015);return}var m=T.L[s%T.L.length],bm=T.B[s%T.B.length],pc=T.p[s%T.p.length];
 if(m>0)tone(mf(m),t,Math.min(T.sus||.3,60/T.bpm*.8),T.lw,.05);else if(m<0)sw(t,320,110,.22,'sawtooth',.08);
 if(bm>0)tone(mf(bm),t,T.bpm<70?1.5:60/T.bpm,T.bw,.09);
 if(pc==='x')sw(t,150,40,.15,'sine',.25);else if(pc==='h')nz(t,.03,.05);else if(pc==='s')nz(t,.09,.08);else if(pc==='w')nz(t,1.4,.025)}
 function lbl(){document.getElementById('mb').textContent=mus?'♪ '+TR[trk].n:'music: off'}
-function setTrack(id){var k=MP[id]||'home';if(k!==trk){trk=k;stepI=0;if(mus){clearInterval(mus);mus=setInterval(seq,30000/TR[trk].bpm)}}lbl()}
+function setTrack(id){var k=(id==='entity'&&entAngry)?'angry':(MP[id]||'home');if(k!==trk){trk=k;stepI=0;if(mus){clearInterval(mus);mus=setInterval(seq,30000/TR[trk].bpm)}}lbl()}
 function music(on){
 if(!on){clearInterval(mus);mus=null;lbl();return}
 try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();
