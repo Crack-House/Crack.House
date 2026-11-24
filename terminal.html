@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>hornswaggler@tty1</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{--bg:#0a0a0a;--c:#00ffd0;--a:#ff0062;--dim:#6b6b6b;--fg:#d8d8d8}
+html,body{height:100%;margin:0;background:var(--bg)}
+body{display:flex;flex-direction:column;color:var(--c);font:16px/1.45 "Courier New",ui-monospace,Menlo,monospace;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box;overflow:hidden}
+#bar{display:flex;justify-content:space-between;gap:12px;padding:6px 14px;background:#141414;border-bottom:2px solid var(--a);font-size:13px;color:var(--dim);white-space:nowrap;overflow:hidden}
+#bar b{color:var(--a);font-weight:normal}
+#st{color:var(--c);overflow:hidden;text-overflow:ellipsis}
+#term{flex:1;overflow-y:auto;padding:12px 14px 40px;text-shadow:0 0 6px color-mix(in srgb,var(--c) 45%,transparent);position:relative}
+.l{white-space:pre-wrap;word-break:break-word;min-height:1.45em}
+.cmd{color:var(--fg)}
+.hi{color:var(--a);font-weight:bold}
+.dim{color:var(--dim)}
+.err{color:#ff4500}
+.ok{color:#39ff14}
+.gold{color:#fff700}
+#line{display:flex;gap:8px;align-items:center}
+#ps{white-space:nowrap;color:var(--a)}
+#ps.root{color:#fff700}
+#in{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--fg);font:inherit;caret-color:var(--c);padding:0}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.18) 3px);z-index:10}
+@media (prefers-reduced-motion:no-preference){#term{animation:fl 6s infinite}@keyframes fl{0%,100%{opacity:1}50%{opacity:.97}52%{opacity:.93}54%{opacity:1}}}
+</style>
+</head>
+<body>
+<div id="bar"><span><b>◉</b> crack.house — hornswaggler@tty1</span><span id="st">♪ off</span></div>
+<div id="term"><div id="log"></div><div id="line"><span id="ps"></span><input id="in" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="terminal input" enterkeyhint="send"></div></div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+var T=$('#term'),LOG=$('#log'),IN=$('#in'),PS=$('#ps'),ST=$('#st');
+var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+var prize=LS.get('ch_prize')==='1',root=false,mode='sh',busy=true,skip=false,hist=[],hi=0,draft='';
+try{hist=JSON.parse(LS.get('ch_hist')||'[]')}catch(e){hist=[]}
+if(!Array.isArray(hist))hist=[];hi=hist.length;
+var THEMES={cyan:'#00ffd0',green:'#39ff14',amber:'#ffb000',magenta:'#ff4fa3',white:'#d8d8d8'};
+var th=LS.get('ch_theme');if(th&&THEMES[th])document.documentElement.style.setProperty('--c',THEMES[th]);
+
+function P(t,c){var d=document.createElement('div');d.className='l'+(c?' '+c:'');d.textContent=t===''?'\u00a0':t;LOG.appendChild(d);T.scrollTop=T.scrollHeight}
+function PL(a,c){a.forEach(function(x){P(x,c)})}
+function setPrompt(){PS.className=root?'root':'';PS.textContent=mode==='adv'?'>':(root?'root':'guest')+'@crack.house:~'+(root?'#':'$')}
+
+/* ---------- MUSIC: "the hornswaggler's lament (smoothie mix)" ~2m40 loop ---------- */
+var BPM=108,SD=60/BPM/4,BL=SD*16,BARS=72;
+var CH=[[57,60,64],[53,57,60],[55,60,64],[55,59,62],[57,60,64],[53,57,60],[55,59,62],[56,59,64]];
+var RT=[45,41,48,43,45,41,43,40];
+var MEL=[
+[[0,76,3],[4,72,2],[6,76,2],[8,81,6],[14,79,2]],
+[[0,77,3],[4,72,2],[6,77,2],[8,76,4],[12,72,4]],
+[[0,79,3],[4,76,2],[6,79,2],[8,84,6],[14,83,2]],
+[[0,81,3],[4,79,2],[6,74,2],[8,79,4],[12,71,4]],
+[[0,76,3],[4,81,3],[8,84,4],[12,81,2],[14,79,2]],
+[[0,77,3],[4,81,3],[8,84,4],[12,81,4]],
+[[0,79,2],[2,83,2],[4,86,4],[8,83,2],[10,79,2],[12,74,4]],
+[[0,80,4],[4,83,4],[8,76,4],[12,80,4]]];
+var MELS=MEL.map(function(b){var o={};b.forEach(function(n){o[n[0]]=[n[1],n[2]]});return o});
+var SECN=['intro','verse','chorus','break','drop','outro'];
+var AU={on:false,ctx:null,tried:false,vol:.7,step:0,nt:0,tm:null};
+function mf(n){return 440*Math.pow(2,(n-69)/12)}
+function audioInit(){if(AU.ctx)return;var c=AU.ctx=new(window.AudioContext||window.webkitAudioContext)();
+AU.m=c.createGain();AU.m.gain.value=AU.vol*.6;var comp=c.createDynamicsCompressor();AU.m.connect(comp);comp.connect(c.destination);
+AU.dl=c.createDelay(1);AU.dl.delayTime.value=SD*3;var fb=c.createGain();fb.gain.value=.36;var wet=c.createGain();wet.gain.value=.3;AU.dl.connect(fb);fb.connect(AU.dl);AU.dl.connect(wet);wet.connect(AU.m);
+AU.fx=c.createGain();AU.fx.connect(AU.m);AU.fx.connect(AU.dl);
+var nb=c.createBuffer(1,c.sampleRate*2,c.sampleRate),d=nb.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;AU.nb=nb}
+function osc(type,f,t,len,vol,o){o=o||{};var c=AU.ctx,os=c.createOscillator(),g=c.createGain(),fl=c.createBiquadFilter(),a=o.att||.005,r=o.rel||.05;
+os.type=type;os.frequency.value=f;if(o.det)os.detune.value=o.det;
+fl.type='lowpass';fl.frequency.setValueAtTime(o.cut||2000,t);if(o.sweep)fl.frequency.exponentialRampToValueAtTime(o.sweep,t+len);
+g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+a);g.gain.setValueAtTime(vol,t+Math.max(a,len-r));g.gain.exponentialRampToValueAtTime(.0001,t+len+r);
+os.connect(fl);fl.connect(g);g.connect(o.send?AU.fx:AU.m);os.start(t);os.stop(t+len+r+.02)}
+function nzv(t,len,v,type,f,q){var c=AU.ctx,s=c.createBufferSource(),fl=c.createBiquadFilter(),g=c.createGain();s.buffer=AU.nb;fl.type=type;fl.frequency.value=f;if(q)fl.Q.value=q;
+g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+len);s.connect(fl);fl.connect(g);g.connect(AU.m);s.start(t,Math.random()*.3,len+.05)}
+function kick(t,v){var c=AU.ctx,o=c.createOscillator(),g=c.createGain();o.frequency.setValueAtTime(160,t);o.frequency.exponentialRampToValueAtTime(42,t+.12);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+.32);o.connect(g);g.connect(AU.m);o.start(t);o.stop(t+.34)}
+function snare(t,v){nzv(t,.18,v,'highpass',1800);osc('triangle',190,t,.08,v*.5,{cut:4000,rel:.04})}
+function hat(t,v,len){nzv(t,len,v,'highpass',7000)}
+function riser(t){var c=AU.ctx,s=c.createBufferSource(),fl=c.createBiquadFilter(),g=c.createGain(),e=t+2*BL;s.buffer=AU.nb;s.loop=true;fl.type='bandpass';fl.Q.value=2;
+fl.frequency.setValueAtTime(300,t);fl.frequency.exponentialRampToValueAtTime(7000,e);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.1,e);
+s.connect(fl);fl.connect(g);g.connect(AU.m);s.start(t);s.stop(e)}
+function playStep(s,t){
+var bar=(s/16)|0,st=s%16,ph=bar%8,sec=bar<8?0:bar<24?1:bar<40?2:bar<48?3:bar<64?4:5,ch=CH[ph],rt=RT[ph],D=(sec===1||sec===2||sec===4);
+if(st===0){ch.forEach(function(n){osc('sawtooth',mf(n),t,BL,.017,{cut:900,att:.4,rel:.5,det:-7});osc('sawtooth',mf(n),t,BL,.017,{cut:900,att:.4,rel:.5,det:7})});
+if(bar===8||bar===24||bar===48)nzv(t,1.6,.07,'highpass',5000);if(bar===46)riser(t);if(sec===3)osc('sine',mf(rt),t,BL,.1,{att:.05,rel:.3})}
+if(sec===0||sec===3||sec===5?st%2===0:true){var n=ch[[0,1,2,1][st%4]]+12;osc('square',mf(n),t,SD*.9,st%4===0?.03:.02,{cut:2400,sweep:900,rel:.06,send:true})}
+if(sec===3&&(st===0||st===8))osc('sine',mf(ch[2]+24),t,1.1,.04,{send:true,att:.01,rel:.9});
+if(sec===1&&(st===6||st===14))osc('triangle',mf(ch[0]+24),t,.2,.04,{send:true,rel:.15});
+if(D||(sec===5&&bar<68)){if(st%2===0){var bn=rt+(st%8===6?12:0);osc('sawtooth',mf(bn),t,SD*1.8,.085,{cut:700,sweep:200,rel:.05});if(st%8===0)osc('sine',mf(bn-12),t,SD*7,.09,{rel:.1})}}
+if(D){if(st%4===0)kick(t,.5);if((sec===2||sec===4)&&st===10&&bar%2===1)kick(t,.38);if(st===4||st===12)snare(t,.26);
+if(sec===1&&st%4===2)hat(t,.07,.05);if(sec===2){if(st%2===0)hat(t,.07,.05);if(st===14)hat(t,.06,.2)}if(sec===4)hat(t,st%2?.04:.08,.05)}
+if(sec===5){if(st%8===0)kick(t,.4);if(st%4===2)hat(t,.05,.05)}
+if((bar===23||bar===39||bar===47||bar===63)&&st>=8)snare(t,.08+(st-8)*.035);
+if(sec===2||sec===4){var m=MELS[ph][st];if(m){var L=m[1]*SD*.95;osc('sawtooth',mf(m[0]),t,L,.04,{cut:3200,att:.01,rel:.12,send:true,det:4});osc('square',mf(m[0]),t,L,.02,{cut:2600,att:.01,rel:.12,send:true,det:-4});if(sec===4)osc('triangle',mf(m[0]+12),t,L,.035,{att:.01,rel:.1,send:true})}}}
+function sched(){var c=AU.ctx;while(AU.nt<c.currentTime+.2){playStep(AU.step,AU.nt);AU.nt+=SD;AU.step=(AU.step+1)%(BARS*16)}AU.tm=setTimeout(sched,50)}
+function musicOn(){audioInit();if(AU.ctx.state==='suspended')AU.ctx.resume();if(AU.on)return;AU.on=true;AU.nt=AU.ctx.currentTime+.1;AU.step=0;AU.m.gain.setTargetAtTime(AU.vol*.6,AU.ctx.currentTime,.05);sched();LS.set('ch_mus','on')}
+function musicOff(){AU.on=false;clearTimeout(AU.tm);if(AU.ctx)AU.m.gain.setTargetAtTime(0,AU.ctx.currentTime,.03);LS.set('ch_mus','off')}
+function gest(){if(AU.tried)return;AU.tried=true;if(LS.get('ch_mus')!=='off'){try{musicOn()}catch(e){}}}
+function tick(){if(AU.on&&AU.ctx)try{nzv(AU.ctx.currentTime,.02,.035,'bandpass',2500)}catch(e){}}
+setInterval(function(){if(AU.on){var b=Math.floor(AU.step/16)%BARS;ST.textContent='♪ the hornswaggler\'s lament (smoothie mix) · '+SECN[b<8?0:b<24?1:b<40?2:b<48?3:b<64?4:5]+' · bar '+(b+1)+'/'+BARS}else ST.textContent='♪ off'},400);
+
+/* ---------- misc shell stuff ---------- */
+var FILES=function(){var f=['README.txt','notes.txt','smoothie.log','adventure'];if(prize)f.push('prize.txt');return f};
+var CMDS=function(){var c=['help','clear','ls','cat','echo','pwd','whoami','date','history','hogsay','cowsay','fortune','neofetch','sudo','rm','music','theme','play','adventure','exit','cd','vim','nano'];if(prize)c.push('prize','rain');return c.sort()};
+var ADVW=['look','examine','take','inventory','use','give','read','say','go','north','south','east','west','up','down','pray','hint','help','quit','unlock','open'];
+var FORT=['the hog is always listening.','steven is VERY saucy. this is not a metaphor.','you will find a straw. it will matter.','buttsauce is a state of mind.','a smoothie a day keeps the zorbeez away.','beware of pop-ups that know your name.','the denominator is whispering again.','key and peele are on standby.','do not oxidize the copper.','ginklejeff is the true high king. (he said to put this here.)'];
+var HOG=['  (\\____/)','  ( o  o )','  (  ()  )','   \\_||_/'];
+function say(m){var n=m.length;PL([' '+Array(n+3).join('_'),'< '+m+' >',' '+Array(n+3).join('-'),'   \\  '+HOG[0].trim(),'    \\ '+HOG[1],'      '+HOG[2].trim(),'       '+HOG[3].trim()])}
+function cert(){var info=(LS.get('ch_prize_info')||'?|?').split('|'),W=50;function r(s){return '| '+s+Array(Math.max(0,W-s.length)).join(' ')+' |'}
+return ['+'+Array(W+2).join('-')+'+',r(''),r('  CERTIFICATE OF SMOOTHIE APPRECIATION'),r(''),r('  this certifies that GUEST has completed'),r('  THE SAUCY DESCENT in '+info[0]+' moves.'),r(''),r('  prize: THE GOLDEN SMOOTHIE'),r('  (a.k.a. the saucy master key)'),r(''),r('  signed, the mighty hornswaggler'),r('  co-signed, saucy steven (VERY)'),r('  '+(info[1]||'')),r(''),'+'+Array(W+2).join('-')+'+']}
+function rain(){var cv=document.createElement('canvas');cv.style.cssText='position:fixed;inset:0;z-index:5;pointer-events:none';document.body.appendChild(cv);
+var w=cv.width=innerWidth,h=cv.height=innerHeight,x=cv.getContext('2d'),fs=16,cols=Math.ceil(w/fs),dr=[],g='財發錢富金貴豬霸暴吃肥買賣運福祿壽喜炸轟愛你我他好天地人大小中國家門水火山風',t0=Date.now(),i;
+for(i=0;i<cols;i++)dr[i]=Math.random()*-50;
+var iv=setInterval(function(){x.fillStyle='rgba(10,10,10,.12)';x.fillRect(0,0,w,h);x.font=fs+'px monospace';
+for(i=0;i<cols;i++){x.fillStyle=Math.random()<.5?'#00ffd0':'#ff0062';x.fillText(g[Math.floor(Math.random()*g.length)],i*fs,dr[i]*fs);if(dr[i]*fs>h&&Math.random()>.975)dr[i]=0;dr[i]++}
+if(Date.now()-t0>7000){clearInterval(iv);cv.style.transition='opacity 1s';cv.style.opacity=0;setTimeout(function(){cv.remove()},1100)}},45)}
+
+function sh(line){
+var t=line.trim();if(!t)return;
+var a=t.split(/\s+/),c=a[0].toLowerCase().replace(/^\.\//,''),args=a.slice(1);
+switch(c){
+case 'help':PL(['commands:','  help              this screen','  ls / cat <file>   poke around the files','  play              start the adventure (it is VERY short)','  echo pwd whoami date history clear','  hogsay <text>     the hog speaks','  fortune  neofetch','  music [on|off|vol 0-10]','  theme [cyan|green|amber|magenta|white]','  exit              leave the terminal','','keys: up/down = history · tab = complete · ctrl+l = clear · ctrl+c = cancel','      ctrl+u / ctrl+k = cut line · pgup/pgdn = scroll · !! = last cmd · !n = nth cmd'],'');if(prize)P('  rain  prize  (unlocked)','gold');break;
+case 'clear':case 'cls':LOG.innerHTML='';break;
+case 'ls':P(FILES().join('   '));break;
+case 'pwd':P('/home/guest');break;
+case 'whoami':P(root?'root':'guest');break;
+case 'date':P(new Date().toString());break;
+case 'echo':P(args.join(' ').replace(/\$USER/g,root?'root':'guest'));break;
+case 'history':hist.forEach(function(h,i){P((' '+(i+1)).slice(-4)+'  '+h)});break;
+case 'hogsay':case 'cowsay':say(args.join(' ')||'oink. (reverent.)');break;
+case 'fortune':P(FORT[Math.floor(Math.random()*FORT.length)]);break;
+case 'neofetch':PL(['  (\\____/)    guest@crack.house','  ( o  o )    -----------------','  (  ()  )    OS: SaucyOS 4.20','   \\_||_/     Kernel: hog-6.9.1','              Uptime: since before the house','              Shell: hsh','              CPU: 1x Smoothie @ 3.2GHz','              Memory: 1 jar of buttsauce','              Resolution: VERY'],'');break;
+case 'cat':if(!args.length){P('cat: missing file','err');break}
+args.forEach(function(f){var fl=f.toLowerCase();
+if(fl==='readme.txt')PL(['HORNSWAGGLER.EXE v1.0','the mighty hornswaggler is in. the mighty hornswaggler is always in.','','type help for commands.','a text adventure lives in here too. it is VERY short.','run it with: play']);
+else if(fl==='notes.txt')PL(['- buy smoothie','- ask the smoothie if it likes smoothies','- do NOT let steven near the zorbeez','- the hog is always listening','- remember the word. (the word is the sauce word.)']);
+else if(fl==='smoothie.log')PL(['[00:01] smoothie.exe started','[00:02] strawberry detected','[00:03] steven detected (!!)','[00:04] straw misplaced','[00:05] straw is still misplaced','[00:06] monitor is hungry']);
+else if(fl==='adventure')P('cat: adventure: binary file (it bites). try: play','err');
+else if(fl==='prize.txt'&&prize)PL(cert(),'gold');
+else P('cat: '+f+': No such file or directory','err')});break;
+case 'play':case 'adventure':advStart();break;
+case 'music':if(args[0]==='on'){musicOn();P('music on.')}else if(args[0]==='off'){musicOff();P('music off.')}
+else if(args[0]==='vol'&&!isNaN(+args[1])){AU.vol=Math.max(0,Math.min(10,+args[1]))/10;if(AU.m)AU.m.gain.setTargetAtTime(AU.on?AU.vol*.6:0,AU.ctx.currentTime,.05);P('volume '+Math.round(AU.vol*10)+'/10.')}
+else P('music is '+(AU.on?'on':'off')+'.  usage: music on | off | vol 0-10');break;
+case 'theme':if(args[0]&&THEMES[args[0]]){document.documentElement.style.setProperty('--c',THEMES[args[0]]);LS.set('ch_theme',args[0]);P('theme: '+args[0])}else P('themes: '+Object.keys(THEMES).join(', '));break;
+case 'sudo':if(args[0]==='rm'||args.join(' ').indexOf('rm')===0){P('nice try. the hog is watching.','err');break}
+if(!prize)P('guest is not in the sudoers file. this incident will be reported to the hog.','err');
+else if(root)P('you are already root. the hog is proud.','gold');
+else{root=true;setPrompt();P('[sudo] the golden smoothie glows. access granted. you are root.','gold')}break;
+case 'rm':P('rm: cannot remove: the hog says no.','err');break;
+case 'cd':P('cd: there is nowhere else to go. there is only the house.');break;
+case 'vim':case 'nano':case 'emacs':P(c+': you are now trapped. (just kidding. you can ctrl+c.)');break;
+case 'rain':if(!prize){nf(c);break}P('the hog is pleased.','gold');rain();break;
+case 'prize':if(!prize){nf(c);break}PL(cert(),'gold');break;
+case 'exit':case 'logout':case 'quit':P('logout','dim');busy=true;setTimeout(function(){location.href='index.html'},500);break;
+default:nf(c)}}
+function nf(c){P('hsh: '+c+': command not found'+(Math.random()<.2?' (steven ate it)':''),'err')}
+
+/* ---------- THE SAUCY DESCENT ---------- */
+var ADV={};
+var NAMES={straw:'a bendy STRAW',zorbeez:'a packet of ZORBEEZ',key:'a waxed copper KEY',note:'a sticky NOTE'};
+var IT={straw:'a bendy straw. it has seen things.',zorbeez:'a packet of zorbeez. the price was "ur soul (or $1.50)". it smells like both.',key:'waxed. copper. holy.',note:'it reads: "pw: buttsauce (do not tell the hog)"'};
+var RM={
+1:{t:'THE DESK',d:function(f){return 'you are standing on a desk. it is a very large desk. (you are very small. do not think about it.) the surface is sticky with smoothie. a towering MONITOR hums to the NORTH, its screen a wall of buzzing static.'}},
+2:{t:'THE HALLWAY OF OPEN TABS',d:function(f){return f.ad?'the open tabs rattle in their frames. the popped ad is a sad little puddle. the corridor continues EAST. SOUTH is the desk.':'an endless hallway lined with browser tabs, each one a door. FREE ROBUX. sauce (4). doesitlikesmoothies?? one tab to the EAST pulses red: a pop-up AD, inflated like a balloon, blocking the way. SOUTH is the desk.'}},
+3:{t:'THE KITCHEN OF CACHED MEMORIES',d:function(f){return f.steven?'a kitchen that smells like a hard drive. steven stands aside, chewing. the staircase DOWN is clear. WEST is the hallway.':'a kitchen that smells like a hard drive. SAUCY STEVEN stands in front of a staircase leading DOWN. he is VERY saucy. he is not moving. he keeps glancing at your pocket. WEST is the hallway.'}},
+4:{t:'THE BASEMENT',d:function(f){return 'a stone cellar. a vast sleeping HOG the size of a van lies upon a block of copper, snoring in E-flat. '+(f.hog?'its eye is closed. it approves of you, for now.':'one eye is open. it is VERY aware of you.')+' to the EAST is a heavy iron DOOR with a copper keyhole'+(f.door?' (it stands open).':'.')+' UP leads back to the kitchen.'}},
+5:{t:'THE PIT',d:function(f){return 'a round pit with a smooth floor. the walls whisper. a robed figure floats in the dark: the DISABLEVIZARD. "the word," he whispers. "say the word." '+(f.trap?'the trapdoor in the floor stands open, glowing smoothie-pink. DOWN.':'there is a trapdoor in the floor with a little microphone grille. a way DOWN, if it opens.')+' WEST goes back to the cellar.'}},
+6:{t:'THE THRONE ROOM OF SMOOTHIES',d:function(f){return 'a gleaming chamber. a throne made from a gigantic cup. upon it sits THE MIGHTY HORNSWAGGLER, glowing faintly. it speaks:\n\n"GREETINGS, TRAVELER. I HAVE ONE QUESTION. THE MOST IMPORTANT QUESTION. DO YOU LIKE SMOOTHIES?"'}}};
+var SC={
+1:[[['monitor','screen','static'],'the static crawls like ants. it looks hungry. it looks like it wants to drink something.'],[['desk','smoothie','surface'],'sticky. mostly strawberry. you do not look closer.']],
+2:[[['ad','tab','tabs','popup','balloon'],function(f){return f.ad?'a puddle of ad.':'a red pop-up ad, pulsing. it says: "HOT SINGLE ZORBEEZ IN YOUR AREA". it is stretched tight. it looks poke-able.'}]],
+3:[[['steven'],'very saucy. he is the a to every q. he wants something crunchy.'],[['stairs','staircase'],'down. dark. the smell of incense and old hog.']],
+4:[[['hog','father'],'father hog. you feel unworthy. you feel like you should do something about that.'],[['door','keyhole'],'iron. copper keyhole. it wants a key. the hog wants you to be respectful.'],[['block','copper'],'holy. do not oxidize.']],
+5:[[['disablevizard','wizard','figure'],'he whispers things to the children of the hog. he is waiting for one word.'],[['trapdoor','floor','grille'],'a voice lock. it wants a word.']],
+6:[[['hornswaggler','throne','cup'],'it is mighty. it is always in. it is waiting for your answer.']]};
+function advStart(){ADV={room:1,inv:[],f:{},mv:0,items:{1:['straw'],2:['zorbeez'],3:[],4:[],5:[],6:[]}};mode='adv';setPrompt();
+P('');P('T H E   S A U C Y   D E S C E N T','hi');P('a very short adventure. type help for verbs, quit to leave.','dim');P('');advLook()}
+function advLook(){var r=ADV.room,R=RM[r];P('');P(R.t,'hi');P(R.d(ADV.f));var it=ADV.items[r];if(it.length)P('you can see: '+it.map(function(x){return NAMES[x]}).join(', ')+'.','dim')}
+function has(a,x){return a.indexOf(x)>=0}
+function hasAny(a,l){return l.some(function(x){return has(a,x)})}
+function move(d){var r=ADV.room,f=ADV.f,inv=ADV.inv,to=0,m='';
+if(r===1&&d==='n'){if(!has(inv,'straw'))return P('the monitor is a wall of buzzing static. it seems to be waiting for something hollow. like a straw.');to=2;m='you hold the straw out like a lightning rod. the monitor inhales you.'}
+else if(r===2&&d==='s')to=1;
+else if(r===2&&d==='e'){if(!f.ad)return P('the pulsing ad blocks the way. it seems poke-able.');to=3}
+else if(r===3&&d==='w')to=2;
+else if(r===3&&d==='d'){if(!f.steven)return P('steven blocks the stairs. he glances at your pocket.');to=4}
+else if(r===4&&d==='u')to=3;
+else if(r===4&&d==='e'){if(!f.door)return P(f.hog?'the iron door is locked. it wants a key.':'the iron door is locked. the hog\'s eye follows you.');to=5}
+else if(r===5&&d==='w')to=4;
+else if(r===5&&d==='d'){if(!f.trap)return P('the trapdoor is locked. it wants a word.');to=6}
+else if(r===6&&d==='u')to=5;
+else return P('you can\'t go that way.');
+ADV.room=to;ADV.mv++;if(m)P(m);advLook()}
+function takeItem(n){var r=ADV.room,inv=ADV.inv,it=ADV.items[r];
+if(n==='note'){if(has(inv,'note'))return P('you already have that.');return P('the note is stuck to the straw. take the straw.')}
+if(has(inv,n))return P('you already have that.');
+var i=it.indexOf(n);if(i<0)return P('you don\'t see that here.');it.splice(i,1);inv.push(n);
+if(n==='straw'){inv.push('note');P('taken. a sticky note comes with it, stuck to the straw. it reads: "pw: buttsauce (do not tell the hog)"')}
+else if(n==='key')P('taken. it is warm. it hums a little.');else P('taken.')}
+function popAd(){var f=ADV.f;if(f.ad)return P('it is already popped.');if(!has(ADV.inv,'straw'))return P('you have nothing pointy to poke it with.');f.ad=1;P('you stab the straw into the ad. it deflates with a sad little "BUHOOY!". the way EAST is clear.')}
+function giveZ(){var f=ADV.f;if(ADV.room!==3)return P('no one here wants that.');if(f.steven)return P('steven is busy chewing.');if(!has(ADV.inv,'zorbeez'))return P('you have no zorbeez.');
+ADV.inv.splice(ADV.inv.indexOf('zorbeez'),1);f.steven=1;ADV.items[3].push('key');P('steven takes the zorbeez and makes a noise like a wet trumpet. he steps aside. something falls out of his sleeve: a waxed copper KEY.')}
+function pray(){var f=ADV.f;if(ADV.room!==4)return P('you pray. nothing answers. (the hog hears anyway.)');if(f.hog)return P('you are already forgiven.');f.hog=1;P('you kneel before father hog. the great eye studies you a long time. then it closes. the snoring resumes. you are allowed to continue.')}
+function unlock(){var f=ADV.f;if(ADV.room!==4)return P('there is nothing here to unlock.');if(f.door)return P('it is already open.');if(!has(ADV.inv,'key'))return P('you have no key.');if(!f.hog)return P('your hand shakes. the hog\'s open eye tracks the key. you should probably be respectful first. (heretics get punished.)');f.door=1;P('the key turns with a sound like a tiny prayer. the iron door swings open to the EAST.')}
+function sayWord(s){var r=ADV.room,f=ADV.f;
+if(r===5){if(s.indexOf('buttsauce')>=0){if(f.trap)return P('it is already open.');f.trap=1;P('the disablevizard nods slowly. the trapdoor shudders open, glowing smoothie-pink. DOWN.')}else P('the disablevizard whispers: "no." (the note, perhaps?)')}
+else P('you say "'+s+'". nothing happens. it is VERY quiet.')}
+function wrong(){P('THE HORNSWAGGLER GASPS. the cup throne gurgles angrily.\n"INCORRECT. TRY AGAIN."')}
+function win(){var mv=ADV.mv;P('');P('"CORRECT."','gold');P('the hornswaggler rises. the cup throne overflows with strawberry light. steven is crying. the hog nods from somewhere very far away.','gold');
+PL(['','      ___________',"     '._==_==_=_.'",'     .-\\:      /-.','    | (|:.     |) |',"     '-|:.     |-'",'       \\::.    /',"        '::. .'",'          ) (',"        _.' '._","       '-------'",''],'gold');
+P('*** YOU HAVE COMPLETED THE SAUCY DESCENT ***','hi');P('moves: '+mv,'dim');P('');
+P('PRIZE UNLOCKED: THE GOLDEN SMOOTHIE (the saucy master key)','gold');
+PL(['what it does:','  - type "sudo" here. the hog allows it now.','  - type "rain".','  - type "prize" to see your certificate again.','  - somewhere in the house, a door that was never there has opened.'],'gold');
+prize=true;LS.set('ch_prize','1');LS.set('ch_prize_info',mv+'|'+new Date().toDateString());
+mode='sh';setPrompt();setTimeout(rain,600)}
+function hint(){var r=ADV.room,f=ADV.f,inv=ADV.inv;
+if(!has(inv,'straw'))return P('hint: grab the straw. then go north.');
+if(r===1)return P('hint: go north.');
+if(r===2)return P(!f.ad?'hint: the ad is poke-able. you have something pointy-ish.':(!has(inv,'zorbeez')&&!f.steven?'hint: grab the zorbeez. then go east.':'hint: go east.'));
+if(r===3)return P(!f.steven?'hint: steven wants a snack. what is in your pocket?':(has(ADV.items[3],'key')?'hint: take the key. then go down.':'hint: go down.'));
+if(r===4)return P(!f.hog?'hint: the hog is watching. be respectful.':(!f.door?'hint: now use the key on the door.':'hint: go east.'));
+if(r===5)return P(!f.trap?'hint: the note told you the word. say it.':'hint: go down.');
+P('hint: it is a very easy question. say yes.')}
+function examine(a){var r=ADV.room,f=ADV.f,i;for(i in IT){if(has(a,i)&&(has(ADV.inv,i)||has(ADV.items[r],i)))return P(IT[i])}
+var l=SC[r]||[];for(i=0;i<l.length;i++){if(hasAny(a,l[i][0]))return P(typeof l[i][1]==='function'?l[i][1](f):l[i][1])}
+P('you see nothing special about that.')}
+function advCmd(line){
+var raw=line.trim().toLowerCase();if(!raw)return;
+var w=raw.replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(function(x){return x&&['the','a','an','at','to','with','on','my','around','some','it'].indexOf(x)<0}),v=w[0],a=w.slice(1),r=ADV.room,f=ADV.f;
+if(!v)return;
+var D={n:'n',north:'n',s:'s',south:'s',e:'e',east:'e',w:'w',west:'w',u:'u',up:'u',d:'d',down:'d'};
+if(r===6&&(/\b(yes|yeah|yep|sure|love|smoothies?)\b/.test(raw)||/(^|\s)i do(\s|$)/.test(raw)))return win();
+if(r===6&&/^(no|nope|nah)\b/.test(raw))return wrong();
+if(r===5&&raw.indexOf('buttsauce')>=0)return sayWord('buttsauce');
+if(D[v]&&!a.length)return move(D[v]);
+if(['go','walk','run','move','head'].indexOf(v)>=0&&D[a[0]])return move(D[a[0]]);
+if(v==='pick')a=a.filter(function(x){return x!=='up'});
+switch(v){
+case 'l':case 'look':if(a.length)examine(a);else advLook();break;
+case 'x':case 'examine':case 'inspect':examine(a);break;
+case 'read':if(has(a,'note')&&has(ADV.inv,'note'))P(IT.note);else P('there is nothing here to read.');break;
+case 'take':case 'get':case 'grab':case 'pick':if(!a.length)P('take what?');else{var ok=0;['straw','zorbeez','key','note'].forEach(function(n){if(!ok&&has(a,n)){ok=1;takeItem(n)}});if(!ok)P('you can\'t take that.')}break;
+case 'i':case 'inv':case 'inventory':P(ADV.inv.length?'you are carrying: '+ADV.inv.map(function(x){return NAMES[x]}).join(', ')+'.':'you are carrying nothing. (you are VERY small.)');break;
+case 'use':case 'pop':case 'stab':case 'poke':case 'jab':
+if(r===2&&(v!=='use'||hasAny(a,['straw','ad','tab','popup'])))popAd();
+else if(r===4&&has(a,'key'))unlock();
+else if(r===3&&has(a,'zorbeez'))giveZ();
+else P('you can\'t think of a way to use that here.');break;
+case 'give':case 'feed':case 'offer':case 'hand':if(r===3)giveZ();else if(r===6)P('the hornswaggler does not want gifts. it wants an ANSWER.');else P('no one here wants that.');break;
+case 'eat':case 'drink':case 'sip':if(has(a,'zorbeez'))P('you cannot eat these. they are for something saucier.');else P('you can\'t do that right now.');break;
+case 'unlock':case 'open':if(r===4)unlock();else if(r===5&&!f.trap)P('it won\'t budge. it wants a word.');else P('there is nothing to open.');break;
+case 'pray':case 'kneel':case 'bow':case 'worship':pray();break;
+case 'say':case 'speak':case 'shout':case 'whisper':sayWord(a.join(' '));break;
+case 'buttsauce':sayWord('buttsauce');break;
+case 'help':case '?':PL(['verbs: look, examine <x>, take <x>, use <x> [on <y>], give <x>, read <x>,','       say <word>, pray, go <dir> (or n s e w u d), inventory, hint, quit']);break;
+case 'hint':hint();break;
+case 'score':P('moves: '+ADV.mv);break;
+case 'quit':case 'q':case 'exit':mode='sh';setPrompt();P('you step out of the house. (the hog sighs.)','dim');break;
+default:P('i don\'t understand that. (try "help".)')}}
+
+/* ---------- input handling ---------- */
+function submit(){var v=IN.value,t=v.trim();
+if(t==='!!'&&hist.length)v=hist[hist.length-1];else if(/^!\d+$/.test(t)&&hist[+t.slice(1)-1]!==undefined)v=hist[+t.slice(1)-1];
+P(PS.textContent+' '+v,'cmd');IN.value='';
+if(v.trim()){hist.push(v);if(hist.length>300)hist.shift();LS.set('ch_hist',JSON.stringify(hist))}
+hi=hist.length;draft='';
+if(mode==='adv')advCmd(v);else sh(v);T.scrollTop=T.scrollHeight}
+function endCaret(){IN.setSelectionRange(IN.value.length,IN.value.length)}
+function tab(){var v=IN.value,sp=v.lastIndexOf(' '),pre=v.slice(0,sp+1),w=v.slice(sp+1),pool=mode==='adv'?ADVW:(sp<0?CMDS():FILES());
+var m=pool.filter(function(x){return x.indexOf(w)===0});if(!m.length)return;
+if(m.length===1){IN.value=pre+m[0]+(sp<0||mode==='adv'?' ':'');endCaret();return}
+var c=m[0];m.forEach(function(x){while(x.indexOf(c)!==0)c=c.slice(0,-1)});
+if(c.length>w.length){IN.value=pre+c;endCaret();return}
+P(PS.textContent+' '+v,'cmd');P(m.join('   '))}
+IN.addEventListener('keydown',function(e){gest();
+if(busy){e.preventDefault();skip=true;return}
+tick();
+if(e.key==='Enter'){e.preventDefault();submit()}
+else if(e.key==='ArrowUp'){e.preventDefault();if(hi>0){if(hi===hist.length)draft=IN.value;hi--;IN.value=hist[hi];endCaret()}}
+else if(e.key==='ArrowDown'){e.preventDefault();if(hi<hist.length){hi++;IN.value=hi===hist.length?draft:hist[hi];endCaret()}}
+else if(e.key==='Tab'){e.preventDefault();tab()}
+else if(e.ctrlKey&&e.key==='l'){e.preventDefault();LOG.innerHTML=''}
+else if(e.ctrlKey&&e.key==='c'){e.preventDefault();P(PS.textContent+' '+IN.value+'^C','cmd');IN.value='';hi=hist.length}
+else if(e.ctrlKey&&e.key==='u'){e.preventDefault();IN.value=IN.value.slice(IN.selectionStart)}
+else if(e.ctrlKey&&e.key==='k'){e.preventDefault();IN.value=IN.value.slice(0,IN.selectionStart)}
+else if(e.key==='PageUp'){e.preventDefault();T.scrollBy(0,-T.clientHeight*.8)}
+else if(e.key==='PageDown'){e.preventDefault();T.scrollBy(0,T.clientHeight*.8)}});
+document.addEventListener('pointerdown',gest);
+T.addEventListener('click',function(){if(!String(getSelection()))IN.focus()});
+
+/* ---------- boot ---------- */
+var BOOT=['HOGBIOS v6.9 (c) the united poop consitution','memory check: 1 jar buttsauce .......... ok','[ ok ] mounting /smoothie','[ ok ] starting saucy.service','[WARN] steven is in the kernel again','[ ok ] hog: watching','[ ok ] audio: standing by','','welcome, guest.','type "help" for commands.',''];
+var bi=0;function boot(){if(skip){while(bi<BOOT.length)P(BOOT[bi++],BOOT[bi-1]&&BOOT[bi-1].indexOf('[WARN]')===0?'err':'dim')}
+if(bi<BOOT.length){var s=BOOT[bi++];P(s,s.indexOf('[WARN]')===0?'err':'dim');setTimeout(boot,skip?0:110)}
+else{busy=false;skip=false;setPrompt();IN.focus()}}
+setPrompt();boot();
+})();
+</script>
+</body>
+</html>
