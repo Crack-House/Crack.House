@@ -1,7 +1,88 @@
 {
- "online": false,
+ "online": true,
  "address": "147.185.221.217:11163",
- "list": [],
- "rules": {},
- "updated": 1795727718
+ "name": "GINKLE.TOPIA",
+ "map": "de_dust2",
+ "folder": "cstrike",
+ "game": "Counter-Strike: Source",
+ "appid": 240,
+ "players": 12,
+ "maxPlayers": 16,
+ "bots": 12,
+ "password": false,
+ "vac": true,
+ "version": "11003710",
+ "humans": 0,
+ "list": [
+  {
+   "name": "larryboy",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "billy_mayz",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "spycrab_dot_com",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "frutiger_piss_spongebob",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "FATHER_HOG",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "KILL",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "GinkleJeff_FAKE",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "kicklemiester",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "saucy_steven",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "entity",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "doctor_kill",
+   "score": 0,
+   "time": 13.7
+  },
+  {
+   "name": "psychopantis",
+   "score": 0,
+   "time": 13.7
+  }
+ ],
+ "rules": {
+  "mp_timelimit": "0",
+  "mp_friendlyfire": "0",
+  "sv_alltalk": "0",
+  "mp_roundtime": "9",
+  "mp_freezetime": "0",
+  "mp_c4timer": "45",
+  "sv_gravity": "800"
+ },
+ "updated": 1795727843
 }
