@@ -6,78 +6,73 @@
  "folder": "cstrike",
  "game": "Counter-Strike: Source",
  "appid": 240,
- "players": 13,
+ "players": 12,
  "maxPlayers": 16,
  "bots": 12,
  "password": false,
  "vac": true,
  "version": "11003710",
- "humans": 1,
+ "humans": 0,
  "list": [
   {
-   "name": "entity",
-   "score": 32,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "doctor_kill",
-   "score": 27,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "larryboy",
-   "score": 24,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "psychopantis",
-   "score": 22,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "hornswaggler",
-   "score": 19,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "txt",
-   "score": 19,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "GinkleJeff_FAKE",
-   "score": 12,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "frutiger_piss_spongebob",
-   "score": 12,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "kicklemiester",
-   "score": 11,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "sloppi",
-   "score": 11,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "GinkleJeff",
-   "score": 11,
-   "time": 191.0
+   "name": "",
+   "score": 0,
+   "time": 965.3
   },
   {
-   "name": "billy_mayz",
-   "score": 6,
-   "time": 956.2
-  },
-  {
-   "name": "disablevizard",
-   "score": 5,
-   "time": 956.2
+   "name": "",
+   "score": 0,
+   "time": 965.3
   }
  ],
  "rules": {
@@ -89,5 +84,5 @@
   "mp_c4timer": "45",
   "sv_gravity": "800"
  },
- "updated": 1795724717
+ "updated": 1795724726
 }
