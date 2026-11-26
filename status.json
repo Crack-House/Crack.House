@@ -6,73 +6,78 @@
  "folder": "cstrike",
  "game": "Counter-Strike: Source",
  "appid": 240,
- "players": 12,
+ "players": 13,
  "maxPlayers": 16,
  "bots": 12,
  "password": false,
  "vac": true,
  "version": "11003710",
- "humans": 0,
+ "humans": 1,
  "list": [
   {
    "name": "saucy_steven",
-   "score": 8,
-   "time": 260.7
+   "score": 9,
+   "time": 322.5
   },
   {
    "name": "entity",
-   "score": 7,
-   "time": 260.7
+   "score": 8,
+   "time": 322.5
   },
   {
    "name": "KILL",
-   "score": 6,
-   "time": 260.7
+   "score": 7,
+   "time": 322.5
   },
   {
    "name": "doctor_kill",
-   "score": 5,
-   "time": 260.7
+   "score": 7,
+   "time": 322.5
   },
   {
    "name": "psychopantis",
-   "score": 4,
-   "time": 260.7
-  },
-  {
-   "name": "FATHER_HOG",
-   "score": 3,
-   "time": 260.7
+   "score": 6,
+   "time": 322.5
   },
   {
    "name": "larryboy",
-   "score": 2,
-   "time": 260.7
+   "score": 5,
+   "time": 322.5
+  },
+  {
+   "name": "FATHER_HOG",
+   "score": 5,
+   "time": 322.5
+  },
+  {
+   "name": "GinkleJeff_FAKE",
+   "score": 5,
+   "time": 322.5
   },
   {
    "name": "billy_mayz",
-   "score": 2,
-   "time": 260.7
+   "score": 4,
+   "time": 322.5
   },
   {
    "name": "frutiger_piss_spongebob",
    "score": 2,
-   "time": 260.7
-  },
-  {
-   "name": "GinkleJeff_FAKE",
-   "score": 2,
-   "time": 260.7
+   "time": 322.5
   },
   {
    "name": "kicklemiester",
    "score": 2,
-   "time": 260.7
+   "time": 322.5
   },
   {
    "name": "spycrab_dot_com",
    "score": 1,
-   "time": 260.7
+   "time": 322.5
+  },
+  {
+   "name": "GinkleJeff",
+   "score": 0,
+   "time": 14.5
   }
  ],
  "rules": {
@@ -84,5 +89,5 @@
   "mp_c4timer": "45",
   "sv_gravity": "800"
  },
- "updated": 1795728090
+ "updated": 1795728151
 }
