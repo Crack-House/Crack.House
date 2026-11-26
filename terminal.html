@@ -164,8 +164,8 @@ var ADV={};
 var NAMES={straw:'a bendy STRAW',zorbeez:'a packet of ZORBEEZ',key:'a waxed copper KEY',note:'a sticky NOTE'};
 var IT={straw:'a bendy straw. it has seen things.',zorbeez:'a packet of zorbeez. the price was "ur soul (or $1.50)". it smells like both.',key:'waxed. copper. holy.',note:'it reads: "pw: buttsauce (do not tell the hog)"'};
 var RM={
-1:{t:'THE DESK',d:function(f){return 'you are standing on a desk. it is a very large desk. (you are very small. do not think about it.) the surface is sticky with smoothie. a towering MONITOR hums to the NORTH, its screen a wall of buzzing static.'}},
-2:{t:'THE HALLWAY OF OPEN TABS',d:function(f){return f.ad?'the open tabs rattle in their frames. the popped ad is a sad little puddle. the corridor continues EAST. SOUTH is the desk.':'an endless hallway lined with browser tabs, each one a door. FREE ROBUX. sauce (4). doesitlikesmoothies?? one tab to the EAST pulses red: a pop-up AD, inflated like a balloon, blocking the way. SOUTH is the desk.'}},
+1:{t:'THE DESK',d:function(f){return 'you are standing on a desk. it is a very large desk. (you are very small. do not think about it.) the surface is sticky with HLEM-SPILLAGE. a towering MONITOR hums to the NORTH, its screen a wall of buzzing static.'}},
+2:{t:'THE HALLWAY OF TABS',d:function(f){return f.ad?'the open tabs rattle in their frames. the popped ad is a sad little puddle. the corridor continues EAST. SOUTH is the desk.':'an endless hallway lined with browser tabs, each one a door. FREE ROBUX. sauce (4). doesitlikesmoothies?? one tab to the EAST pulses red: a pop-up AD, inflated like a balloon, blocking the way. SOUTH is the desk.'}},
 3:{t:'THE KITCHEN OF CACHED MEMORIES',d:function(f){return f.steven?'a kitchen that smells like a hard drive. steven stands aside, chewing. the staircase DOWN is clear. WEST is the hallway.':'a kitchen that smells like a hard drive. SAUCY STEVEN stands in front of a staircase leading DOWN. he is VERY saucy. he is not moving. he keeps glancing at your pocket. WEST is the hallway.'}},
 4:{t:'THE BASEMENT',d:function(f){return 'a stone cellar. a vast sleeping HOG the size of a van lies upon a block of copper, snoring in E-flat. '+(f.hog?'its eye is closed. it approves of you, for now.':'one eye is open. it is VERY aware of you.')+' to the EAST is a heavy iron DOOR with a copper keyhole'+(f.door?' (it stands open).':'.')+' UP leads back to the kitchen.'}},
 5:{t:'THE PIT',d:function(f){return 'a round pit with a smooth floor. the walls whisper. a robed figure floats in the dark: the DISABLEVIZARD. "the word," he whispers. "say the word." '+(f.trap?'the trapdoor in the floor stands open, glowing smoothie-pink. DOWN.':'there is a trapdoor in the floor with a little microphone grille. a way DOWN, if it opens.')+' WEST goes back to the cellar.'}},
@@ -173,7 +173,7 @@ var RM={
 var SC={
 1:[[['monitor','screen','static'],'the static crawls like ants. it looks hungry. it looks like it wants to drink something.'],[['desk','smoothie','surface'],'sticky. mostly strawberry. you do not look closer.']],
 2:[[['ad','tab','tabs','popup','balloon'],function(f){return f.ad?'a puddle of ad.':'a red pop-up ad, pulsing. it says: "HOT SINGLE ZORBEEZ IN YOUR AREA". it is stretched tight. it looks poke-able.'}]],
-3:[[['steven'],'very saucy. he is the a to every q. he wants something crunchy.'],[['stairs','staircase'],'down. dark. the smell of incense and old hog.']],
+3:[[['steven'],'very saucy. he is the a to every q. he wants something to CONSUME.'],[['stairs','staircase'],'down. dark. the smell of burning heretics and, of course the hog.']],
 4:[[['hog','father'],'father hog. you feel unworthy. you feel like you should do something about that.'],[['door','keyhole'],'iron. copper keyhole. it wants a key. the hog wants you to be respectful.'],[['block','copper'],'holy. do not oxidize.']],
 5:[[['disablevizard','wizard','figure'],'he whispers things to the children of the hog. he is waiting for one word.'],[['trapdoor','floor','grille'],'a voice lock. it wants a word.']],
 6:[[['hornswaggler','throne','cup'],'it is mighty. it is always in. it is waiting for your answer.']]};
@@ -183,11 +183,11 @@ function advLook(){var r=ADV.room,R=RM[r];P('');P(R.t,'hi');P(R.d(ADV.f));var it
 function has(a,x){return a.indexOf(x)>=0}
 function hasAny(a,l){return l.some(function(x){return has(a,x)})}
 function move(d){var r=ADV.room,f=ADV.f,inv=ADV.inv,to=0,m='';
-if(r===1&&d==='n'){if(!has(inv,'straw'))return P('the monitor is a wall of buzzing static. it seems to be waiting for something hollow. like a straw.');to=2;m='you hold the straw out like a lightning rod. the monitor inhales you.'}
+if(r===1&&d==='n'){if(!has(inv,'straw'))return P('the monitor is a wall of buzzing static. it seems to be waiting for something. like a straw.');to=2;m='you hold the straw out like a lightning rod. the monitor inhales you back in.'}
 else if(r===2&&d==='s')to=1;
 else if(r===2&&d==='e'){if(!f.ad)return P('the pulsing ad blocks the way. it seems poke-able.');to=3}
 else if(r===3&&d==='w')to=2;
-else if(r===3&&d==='d'){if(!f.steven)return P('steven blocks the stairs. he glances at your pocket.');to=4}
+else if(r===3&&d==='d'){if(!f.steven)return P('steven blocks the stairs. he glances at whats in your pocket.');to=4}
 else if(r===4&&d==='u')to=3;
 else if(r===4&&d==='e'){if(!f.door)return P(f.hog?'the iron door is locked. it wants a key.':'the iron door is locked. the hog\'s eye follows you.');to=5}
 else if(r===5&&d==='w')to=4;
@@ -203,14 +203,14 @@ if(n==='straw'){inv.push('note');P('taken. a sticky note comes with it, stuck to
 else if(n==='key')P('taken. it is warm. it hums a little.');else P('taken.')}
 function popAd(){var f=ADV.f;if(f.ad)return P('it is already popped.');if(!has(ADV.inv,'straw'))return P('you have nothing pointy to poke it with.');f.ad=1;P('you stab the straw into the ad. it deflates with a sad little "BUHOOY!". the way EAST is clear.')}
 function giveZ(){var f=ADV.f;if(ADV.room!==3)return P('no one here wants that.');if(f.steven)return P('steven is busy chewing.');if(!has(ADV.inv,'zorbeez'))return P('you have no zorbeez.');
-ADV.inv.splice(ADV.inv.indexOf('zorbeez'),1);f.steven=1;ADV.items[3].push('key');P('steven takes the zorbeez and makes a noise like a wet trumpet. he steps aside. something falls out of his sleeve: a waxed copper KEY.')}
-function pray(){var f=ADV.f;if(ADV.room!==4)return P('you pray. nothing answers. (the hog hears anyway.)');if(f.hog)return P('you are already forgiven.');f.hog=1;P('you kneel before father hog. the great eye studies you a long time. then it closes. the snoring resumes. you are allowed to continue.')}
-function unlock(){var f=ADV.f;if(ADV.room!==4)return P('there is nothing here to unlock.');if(f.door)return P('it is already open.');if(!has(ADV.inv,'key'))return P('you have no key.');if(!f.hog)return P('your hand shakes. the hog\'s open eye tracks the key. you should probably be respectful first. (heretics get punished.)');f.door=1;P('the key turns with a sound like a tiny prayer. the iron door swings open to the EAST.')}
+ADV.inv.splice(ADV.inv.indexOf('zorbeez'),1);f.steven=1;ADV.items[3].push('key');P('steven takes the zorbeez and emits a high-pitched noise. he steps aside. he drops something on the ground: a waxed copper KEY.')}
+function pray(){var f=ADV.f;if(ADV.room!==4)return P('you pray to father hog. he doesn;t answers. (the hog hears it anyway.)');if(f.hog)return P('you are already forgiven.');f.hog=1;P('you kneel before the GREAT and POWERFUL father hog. his great eye studies you a long time. then it closes. his half snoring resumes. he has allowed you to continue.')}
+function unlock(){var f=ADV.f;if(ADV.room!==4)return P('there is nothing here to unlock.');if(f.door)return P('it is already open.');if(!has(ADV.inv,'key'))return P('you have no key.');if(!f.hog)return P('your hand shakes. the hog\'s open eye sees you and your key. you should probably be respectful first. (heretics get punished.)');f.door=1;P('the key turns into the lock. and the iron door swings open to the EAST.')}
 function sayWord(s){var r=ADV.room,f=ADV.f;
-if(r===5){if(s.indexOf('buttsauce')>=0){if(f.trap)return P('it is already open.');f.trap=1;P('the disablevizard nods slowly. the trapdoor shudders open, glowing smoothie-pink. DOWN.')}else P('the disablevizard whispers: "no." (the note, perhaps?)')}
+if(r===5){if(s.indexOf('buttsauce')>=0){if(f.trap)return P('it is already open.');f.trap=1;P('the wizard nods slowly. the trapdoor shudders open, glowing smoothie-pink. DOWN.')}else P('the wizard whispers: "no." (the note, perhaps?)')}
 else P('you say "'+s+'". nothing happens. it is VERY quiet.')}
-function wrong(){P('THE HORNSWAGGLER GASPS. the cup throne gurgles angrily.\n"INCORRECT. TRY AGAIN."')}
-function win(){var mv=ADV.mv;P('');P('"CORRECT."','gold');P('the hornswaggler rises. the cup throne overflows with strawberry light. steven is crying. the hog nods from somewhere very far away.','gold');
+function wrong(){P('HORNSWAGGLER GASPS. the cup throne gurgles in anger.\n"INCORRECT. TRY AGAIN."')}
+function win(){var mv=ADV.mv;P('');P('"CORRECT."','gold');P('the hornswaggler rises. the cup throne overflows with HLEM. steven is sobbing tears of SAUCE. the hog nods from its underground chamber.','gold');
 PL(['','      ___________',"     '._==_==_=_.'",'     .-\\:      /-.','    | (|:.     |) |',"     '-|:.     |-'",'       \\::.    /',"        '::. .'",'          ) (',"        _.' '._","       '-------'",''],'gold');
 P('*** YOU HAVE COMPLETED THE SAUCY DESCENT ***','hi');P('moves: '+mv,'dim');P('');
 P('PRIZE UNLOCKED: THE GOLDEN SMOOTHIE (the saucy master key)','gold');
@@ -220,8 +220,8 @@ mode='sh';setPrompt();setTimeout(rain,600)}
 function hint(){var r=ADV.room,f=ADV.f,inv=ADV.inv;
 if(!has(inv,'straw'))return P('hint: grab the straw. then go north.');
 if(r===1)return P('hint: go north.');
-if(r===2)return P(!f.ad?'hint: the ad is poke-able. you have something pointy-ish.':(!has(inv,'zorbeez')&&!f.steven?'hint: grab the zorbeez. then go east.':'hint: go east.'));
-if(r===3)return P(!f.steven?'hint: steven wants a snack. what is in your pocket?':(has(ADV.items[3],'key')?'hint: take the key. then go down.':'hint: go down.'));
+if(r===2)return P(!f.ad?'hint: the ad is pokeable. you have something pointy-ish.':(!has(inv,'zorbeez')&&!f.steven?'hint: grab the zorbeez. then go east.':'hint: go east.'));
+if(r===3)return P(!f.steven?'hint: steven wants a PRODUCT. what is in your pocket?':(has(ADV.items[3],'key')?'hint: take the key. then go down.':'hint: go down.'));
 if(r===4)return P(!f.hog?'hint: the hog is watching. be respectful.':(!f.door?'hint: now use the key on the door.':'hint: go east.'));
 if(r===5)return P(!f.trap?'hint: the note told you the word. say it.':'hint: go down.');
 P('hint: it is a very easy question. say yes.')}
@@ -259,7 +259,7 @@ case 'buttsauce':sayWord('buttsauce');break;
 case 'help':case '?':PL(['verbs: look, examine <x>, take <x>, use <x> [on <y>], give <x>, read <x>,','       say <word>, pray, go <dir> (or n s e w u d), inventory, hint, quit']);break;
 case 'hint':hint();break;
 case 'score':P('moves: '+ADV.mv);break;
-case 'quit':case 'q':case 'exit':mode='sh';setPrompt();P('you step out of the house. (the hog sighs.)','dim');break;
+case 'quit':case 'q':case 'exit':mode='sh';setPrompt();P('you step out of the house. (FATHER HOG sighs.)','dim');break;
 default:P('i don\'t understand that. (try "help".)')}}
 
 /* ---------- input handling ---------- */
@@ -293,7 +293,7 @@ document.addEventListener('pointerdown',gest);
 T.addEventListener('click',function(){if(!String(getSelection()))IN.focus()});
 
 /* ---------- boot ---------- */
-var BOOT=['HOGBIOS v6.9 (c) the united poop consitution','memory check: 1 jar buttsauce .......... ok','[ ok ] mounting /smoothie','[ ok ] starting saucy.service','[WARN] steven is in the kernel again','[ ok ] hog: watching','[ ok ] audio: standing by','','welcome, guest.','type "help" for commands.',''];
+var BOOT=['HOGBIOS v6.9 (c) the united poop consitution','memory check: 1 jar buttsauce .......... ok','[ ok ] mounting /smoothie','[ ok ] starting saucy.service','[WARN] steven is in the kernel again','[ ok ] hog: watching','[ ok ] audio: standing by','','welcome, user."','type "help" for commands.',''];
 var bi=0;function boot(){if(skip){while(bi<BOOT.length)P(BOOT[bi++],BOOT[bi-1]&&BOOT[bi-1].indexOf('[WARN]')===0?'err':'dim')}
 if(bi<BOOT.length){var s=BOOT[bi++];P(s,s.indexOf('[WARN]')===0?'err':'dim');setTimeout(boot,skip?0:110)}
 else{busy=false;skip=false;setPrompt();IN.focus()}}
