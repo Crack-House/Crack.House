@@ -213,7 +213,7 @@ if(bar===44&&st===0)riser(t,BL*4);
 if(bar===47&&st>=8)snare(t,.06+(st-8)*.04)}
 if(bar===48&&st===0)boom(t)}
 function sched(){var c=AU.ctx;while(AU.nt<c.currentTime+.2){play(AU.step,AU.nt);AU.nt+=SD;AU.step=(AU.step+1)%(BARS*16)}AU.tm=setTimeout(sched,50)}
-function mon(){ainit();if(AU.ctx.state==='suspended')AU.ctx.resume();if(AU.on)return;AU.on=true;AU.nt=AU.ctx.currentTime+.1;AU.step=0;AU.m.gain.setTargetAtTime(.55,AU.ctx.currentTime,.05);sched();$('mb').textContent='♪ dust2 at 3am (defuse the groove)'}
+function mon(){ainit();if(AU.ctx.state==='suspended')AU.ctx.resume();if(AU.on)return;AU.on=true;AU.nt=AU.ctx.currentTime+.1;AU.step=0;AU.m.gain.setTargetAtTime(.55,AU.ctx.currentTime,.05);sched();$('mb').textContent='♪ de_dust2'}
 function moff(){AU.on=false;clearTimeout(AU.tm);if(AU.ctx)AU.m.gain.setTargetAtTime(0,AU.ctx.currentTime,.03);$('mb').textContent='music: off'}
 $('mb').onclick=function(){try{AU.on?moff():mon()}catch(e){}};
 })();
