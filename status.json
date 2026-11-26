@@ -15,64 +15,64 @@
  "humans": 0,
  "list": [
   {
-   "name": "saucy_steven",
-   "score": 24,
-   "time": 1620.2
+   "name": "doctor_kill",
+   "score": 26,
+   "time": 1682.0
   },
   {
-   "name": "doctor_kill",
-   "score": 22,
-   "time": 1620.2
+   "name": "saucy_steven",
+   "score": 25,
+   "time": 1682.0
   },
   {
    "name": "GinkleJeff_FAKE",
-   "score": 22,
-   "time": 1620.2
-  },
-  {
-   "name": "entity",
-   "score": 19,
-   "time": 1620.2
+   "score": 25,
+   "time": 1682.0
   },
   {
    "name": "disablevizard",
-   "score": 17,
-   "time": 1620.2
+   "score": 21,
+   "time": 1682.0
+  },
+  {
+   "name": "entity",
+   "score": 20,
+   "time": 1682.0
+  },
+  {
+   "name": "spycrab_dot_com",
+   "score": 18,
+   "time": 1682.0
   },
   {
    "name": "psychopantis",
    "score": 17,
-   "time": 1620.2
+   "time": 1682.0
   },
   {
    "name": "FATHER_HOG",
-   "score": 13,
-   "time": 1620.2
+   "score": 15,
+   "time": 1682.0
   },
   {
-   "name": "spycrab_dot_com",
-   "score": 13,
-   "time": 1620.2
+   "name": "billy_mayz",
+   "score": 12,
+   "time": 1682.0
   },
   {
    "name": "larryboy",
    "score": 12,
-   "time": 1620.2
-  },
-  {
-   "name": "billy_mayz",
-   "score": 11,
-   "time": 1620.2
+   "time": 1682.0
   },
   {
    "name": "frutiger_piss_spongebob",
-   "score": 11,
-   "time": 1620.2
+   "score": 12,
+   "time": 1682.0
   },
   {
    "name": "KILL",
-   "score": 7,
-   "time": 1620.2
+   "score": 8,
+   "time": 1682.0
   }
  ],
  "rules": {
@@ -84,5 +84,5 @@
   "mp_c4timer": "45",
   "sv_gravity": "800"
  },
- "updated": 1795729449
+ "updated": 1795729511
 }
