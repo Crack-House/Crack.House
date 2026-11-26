@@ -17,67 +17,67 @@
   {
    "name": "entity",
    "score": 31,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "doctor_kill",
    "score": 26,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "larryboy",
    "score": 23,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "hornswaggler",
    "score": 18,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "psychopantis",
    "score": 16,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "txt",
    "score": 12,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "GinkleJeff_FAKE",
    "score": 11,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "kicklemiester",
    "score": 10,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "frutiger_piss_spongebob",
    "score": 10,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "sloppi",
-   "score": 9,
-   "time": 832.5
+   "score": 10,
+   "time": 841.7
   },
   {
    "name": "billy_mayz",
    "score": 6,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "disablevizard",
    "score": 5,
-   "time": 832.5
+   "time": 841.7
   },
   {
    "name": "GinkleJeff",
-   "score": 1,
-   "time": 67.3
+   "score": 2,
+   "time": 76.5
   }
  ],
  "rules": {
@@ -89,5 +89,5 @@
   "mp_c4timer": "45",
   "sv_gravity": "800"
  },
- "updated": 1795724593
+ "updated": 1795724602
 }
