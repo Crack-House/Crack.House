@@ -17,62 +17,62 @@
   {
    "name": "entity",
    "score": 28,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "doctor_kill",
-   "score": 22,
-   "time": 655.8
+   "score": 23,
+   "time": 708.8
   },
   {
    "name": "larryboy",
-   "score": 20,
-   "time": 655.8
+   "score": 23,
+   "time": 708.8
   },
   {
    "name": "hornswaggler",
    "score": 17,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "psychopantis",
-   "score": 12,
-   "time": 655.8
+   "score": 14,
+   "time": 708.8
   },
   {
    "name": "kicklemiester",
    "score": 10,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "txt",
    "score": 10,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "frutiger_piss_spongebob",
    "score": 7,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "sloppi",
    "score": 7,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "GinkleJeff_FAKE",
    "score": 6,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "billy_mayz",
    "score": 5,
-   "time": 655.8
+   "time": 708.8
   },
   {
    "name": "disablevizard",
    "score": 4,
-   "time": 655.8
+   "time": 708.8
   }
  ],
  "rules": {
@@ -84,5 +84,5 @@
   "mp_c4timer": "45",
   "sv_gravity": "800"
  },
- "updated": 1795724416
+ "updated": 1795724469
 }
