@@ -16,63 +16,63 @@
  "list": [
   {
    "name": "saucy_steven",
-   "score": 57,
-   "time": 2733.6
+   "score": 59,
+   "time": 2795.5
   },
   {
    "name": "spycrab_dot_com",
-   "score": 55,
-   "time": 2733.6
+   "score": 58,
+   "time": 2795.5
   },
   {
    "name": "doctor_kill",
-   "score": 48,
-   "time": 2733.6
+   "score": 50,
+   "time": 2795.5
   },
   {
    "name": "disablevizard",
    "score": 42,
-   "time": 2733.6
+   "time": 2795.5
   },
   {
    "name": "entity",
    "score": 40,
-   "time": 2733.6
+   "time": 2795.5
   },
   {
    "name": "GinkleJeff_FAKE",
    "score": 39,
-   "time": 2733.6
+   "time": 2795.5
   },
   {
    "name": "FATHER_HOG",
-   "score": 32,
-   "time": 2733.6
+   "score": 33,
+   "time": 2795.5
   },
   {
    "name": "psychopantis",
-   "score": 31,
-   "time": 2733.6
+   "score": 33,
+   "time": 2795.5
   },
   {
    "name": "frutiger_piss_spongebob",
-   "score": 30,
-   "time": 2733.6
+   "score": 31,
+   "time": 2795.5
   },
   {
    "name": "larryboy",
-   "score": 28,
-   "time": 2733.6
+   "score": 29,
+   "time": 2795.5
   },
   {
    "name": "KILL",
-   "score": 25,
-   "time": 2733.6
+   "score": 27,
+   "time": 2795.5
   },
   {
    "name": "billy_mayz",
    "score": 22,
-   "time": 2733.6
+   "time": 2795.5
   }
  ],
  "rules": {
@@ -84,5 +84,5 @@
   "mp_c4timer": "45",
   "sv_gravity": "800"
  },
- "updated": 1795730563
+ "updated": 1795730624
 }
